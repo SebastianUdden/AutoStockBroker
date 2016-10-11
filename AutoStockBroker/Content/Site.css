@@ -1,0 +1,92 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*.navbar {
+    background-color:#0E0B16 !important;
+}*/
+
+/*color-scheme: 
+    - Void: #0E0B16
+    - Fuschia: #A239CA
+    - Jewel: #4717F6
+        - #E6DFFF
+    - Stark: #E7DFDD
+*/
+
+.white-bg {
+    background-color:#ffffff;
+    color:#0E0B16;
+}
+
+.whiteMenuItem-bg {
+    background-color:#ffffff;
+    color:#0E0B16;
+}
+
+.whiteMenuItem-bg:hover {
+    background-color:#E7DFDD;
+    color:#0E0B16;
+}
+
+.whiteMenuItem-bg:active {
+    background-color:#d2cbc9;
+    color:#0E0B16;
+}
+
+.void-bg {
+    background-color:#0E0B16;
+    color:#E7DFDD;
+}
+
+.fuschia-bg {
+    background-color:#A239CA;
+    color:#E7DFDD;
+}
+
+.jewel-bg {
+    background-color:#4717F6;
+    color:#E7DFDD;
+}
+
+.stark-bg {
+    background-color:#E7DFDD;
+    color:#808080;
+}
+
+/*color-scheme: 
+    - Void: #0E0B16
+    - Fuschia: #A239CA
+    - Jewel: #4717F6
+        - #E6DFFF
+    - Stark: #E7DFDD
+*/
+
+.paddingLeft-5 {
+    padding-left:5px;
+}
+
+.paddingLeft-15 {
+    padding-left:15px;
+}
