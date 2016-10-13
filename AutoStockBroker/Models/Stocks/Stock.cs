@@ -10,7 +10,7 @@ namespace AutoStockBroker.Models.Stocks
         public string Name { get; set; }
         public string Href { get; set; }
         public string Industry { get; set; }
-        Branch privateObj;
+        Branch privateObject;
         public double Value { get; set; }
         public int AmountOwned { get; set; }
         public double ValueOwned { get; set; }
@@ -24,11 +24,11 @@ namespace AutoStockBroker.Models.Stocks
         {
             get
             {
-                return privateObj;
+                return privateObject;
             }
             set
             {
-                privateObj = value;
+                privateObject = value;
             }
         }
     }
