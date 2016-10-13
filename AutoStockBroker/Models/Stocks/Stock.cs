@@ -11,7 +11,8 @@ namespace AutoStockBroker.Models.Stocks
         public string Href { get; set; }
         public string Industry { get; set; }
         Branch privateObject;
-        public double Value { get; set; }
+        public double DoubleValue { get; set; }
+        public string StringValue { get; set; }
         public int AmountOwned { get; set; }
         public double ValueOwned { get; set; }
         public double Weight { get; set; }

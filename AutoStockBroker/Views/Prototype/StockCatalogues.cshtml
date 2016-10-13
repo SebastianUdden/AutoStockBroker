@@ -1,4 +1,4 @@
-﻿@model AutoStockBroker.Models.Stocks.StockPortfolio
+﻿@model AutoStockBroker.Models.Stocks.AvanzaPortfolio
 
 @{
     ViewBag.Title = "Prototype page";
@@ -8,28 +8,51 @@
 <p>@ViewBag.Message</p>
 
 <h2>Information from @Model.StockCatalogueName</h2>
-<p>Total shares owned: <b>@*@Model.TotalAmountOwned*@</b></p>
-<p>Total value accumulated: <b>@*@Model.TotalValue SEK*@</b></p>
+<p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
+<p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
 <table>
     <theader>
         <tr class="paper-bg">
             <th>Name</th>
-            <th>Value</th>
-            <th>Amount owned</th>
-            <th>Value owned</th>
-            <th>Portfolio Weight</th>
+            <th>Industry</th>
+            <th class="numbers">Value</th>
+            <th class="numbers">Amount owned</th>
+            <th class="numbers">Value owned</th>
+            <th class="numbers">Portfolio Weight</th>
         </tr>
     </theader>
     <tbody>
-        @for (int i = 0; i < Model.Stocks.Count(); i++)
+        @for (int i = 0; i < Model.LargeCapStocks.Count(); i++)
         {
             <tr>
-                <td>@Model.Stocks[i].Name</td>
-                <td>@Model.Stocks[i].Value</td>
-                @*<td class="numbers">@Model.Stocks[i].Value.ToString("F")</td>
-                <td class="numbers">@Model.Stocks[i].AmountOwned</td>
-                <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers">@Model.Stocks[i].Weight.ToString("F")%</td>*@
+                <td>@Model.LargeCapStocks[i].Name</td>
+                <td>@Model.LargeCapStocks[i].Industry</td>
+                <td class="numbers">@Model.LargeCapStocks[i].StringValue</td>
+                <td class="numbers">@Model.LargeCapStocks[i].AmountOwned</td>
+                <td class="numbers">@Model.LargeCapStocks[i].ValueOwned.ToString("F")</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Weight.ToString("F")%</td>
+            </tr>
+        }
+        @for (int i = 0; i < Model.MidCapStocks.Count(); i++)
+        {
+            <tr>
+                <td>@Model.MidCapStocks[i].Name</td>
+                <td>@Model.MidCapStocks[i].Industry</td>
+                <td class="numbers">@Model.MidCapStocks[i].StringValue</td>
+                <td class="numbers">@Model.MidCapStocks[i].AmountOwned</td>
+                <td class="numbers">@Model.MidCapStocks[i].ValueOwned.ToString("F")</td>
+                <td class="numbers">@Model.MidCapStocks[i].Weight.ToString("F")%</td>
+            </tr>
+        }
+        @for (int i = 0; i < Model.SmallCapStocks.Count(); i++)
+        {
+            <tr>
+                <td>@Model.SmallCapStocks[i].Name</td>
+                <td>@Model.SmallCapStocks[i].Industry</td>
+                <td class="numbers">@Model.SmallCapStocks[i].StringValue</td>
+                <td class="numbers">@Model.SmallCapStocks[i].AmountOwned</td>
+                <td class="numbers">@Model.SmallCapStocks[i].ValueOwned.ToString("F")</td>
+                <td class="numbers">@Model.SmallCapStocks[i].Weight.ToString("F")%</td>
             </tr>
         }
     </tbody>

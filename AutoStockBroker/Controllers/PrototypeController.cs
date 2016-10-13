@@ -23,8 +23,23 @@ namespace AutoStockBroker.Controllers
 
             StockPortfolio newStockPortfolio = ParseStockList("https://borsdata.se", stockPortfolio);
 
-            StockPortfolio avanzaStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html", stockPortfolio);
+            StockPortfolio avanzaLargeCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
+            StockPortfolio viewAvanzaLargeCapStockPortfolio = SetStockParameters(avanzaLargeCapStockPortfolio);
+        
+            StockPortfolio avanzaMidCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
+            StockPortfolio viewAvanzaMidCapStockPortfolio = SetStockParameters(avanzaMidCapStockPortfolio);
 
+            StockPortfolio avanzaSmallCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
+            StockPortfolio viewAvanzaSmallCapStockPortfolio = SetStockParameters(avanzaSmallCapStockPortfolio);
+
+            AvanzaPortfolio avanzaAllCapStockPortfolio = new AvanzaPortfolio()
+            {
+                StockCatalogueName = "AvanzaAllCapStockPortfolio",
+                LargeCapStocks = viewAvanzaLargeCapStockPortfolio.Stocks,
+                MidCapStocks = viewAvanzaMidCapStockPortfolio.Stocks,
+                SmallCapStocks = viewAvanzaSmallCapStockPortfolio.Stocks,
+            };
+            
             #region NotUsed
             //stockPortfolio.Stocks = new []{
             //    new Stock
@@ -75,9 +90,8 @@ namespace AutoStockBroker.Controllers
             //};
             #endregion
 
-            //StockPortfolio viewStockPortfolio = SetStockParameters("https://borsdata.se", newStockPortfolio);
             ViewBag.Message = "These are the stocks currently added.";
-            return View(avanzaStockPortfolio);
+            return View(avanzaAllCapStockPortfolio);
         }
 
         private StockPortfolio ParseAvanzaOldList(string website, StockPortfolio stockPortfolio)
@@ -105,10 +119,20 @@ namespace AutoStockBroker.Controllers
 
             for (int i = 0; i < trs.Count(); i++)
             {
-                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
+                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;                
+                double doubleValue = 0;
+                var tempValue = value.Replace(',', '.');
+                if (tempValue.Length > 6)
+                {
+                    tempValue = tempValue.Remove(tempValue.Length - 8, 2);
+                }
 
                 stockPortfolio.Stocks.Add(new Stock {
                     Name = trs.ElementAt(i).Descendants("td").ElementAt(1).Descendants("a").First().InnerText.Trim(),
+                    DoubleValue = Convert.ToDouble(tempValue),
+                    StringValue = string.Format("{0:0.##}", tempValue),
+                    AmountOwned = 10
+                    //StringValue = Regex.Match(tempValue, @"\d+(\,\d{1,2})?").Value
                 });
                 //string aTag = trs.ElementAt(i).OuterHtml.ToString();
                 //int pFrom = aTag.IndexOf("href=\"/") + "href=\"/".Length;
@@ -126,12 +150,11 @@ namespace AutoStockBroker.Controllers
             return stockPortfolio;
         }
 
-        private StockPortfolio SetStockParameters(string website, StockPortfolio stockPortfolio)
+        private StockPortfolio SetStockParameters(StockPortfolio stockPortfolio)
         {
             for (int i = 0; i < stockPortfolio.Stocks.Count; i++)
             {
-                stockPortfolio.Stocks[i].Value = Convert.ToDouble(ParseIndividualHTML(website + "/" + stockPortfolio.Stocks[i].Href + "/nyckeltal"));
-                stockPortfolio.Stocks[i].ValueOwned = stockPortfolio.Stocks[i].Value * stockPortfolio.Stocks[i].AmountOwned;
+                stockPortfolio.Stocks[i].ValueOwned = stockPortfolio.Stocks[i].DoubleValue * stockPortfolio.Stocks[i].AmountOwned;
                 stockPortfolio.TotalValue += stockPortfolio.Stocks[i].ValueOwned;
                 stockPortfolio.TotalAmountOwned += stockPortfolio.Stocks[i].AmountOwned;
             }
