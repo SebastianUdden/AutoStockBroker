@@ -105,9 +105,10 @@ namespace AutoStockBroker.Controllers
 
             for (int i = 0; i < trs.Count(); i++)
             {
+                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
+
                 stockPortfolio.Stocks.Add(new Stock {
                     Name = trs.ElementAt(i).Descendants("td").ElementAt(1).Descendants("a").First().InnerText.Trim(),
-                    Value = Convert.ToDouble(trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText)
                 });
                 //string aTag = trs.ElementAt(i).OuterHtml.ToString();
                 //int pFrom = aTag.IndexOf("href=\"/") + "href=\"/".Length;
