@@ -1,12 +1,29 @@
-﻿body {
+﻿* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+
+body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    text-decoration:none;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -112px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 112px; /* .push must be the same height as .footer */
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,25 +40,110 @@ textarea {
     max-width: 280px;
 }
 
-/*.navbar {
-    background-color:#0E0B16 !important;
-}*/
+ul {
+  list-style-type: none;
+}
 
-/*color-scheme: 
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border:1px solid #D5D5D5;
+}
+
+th, td {
+    padding: 4px 10px;
+    text-align: left;
+}
+
+.numbers {
+    text-align: right !important;
+    /*color:#96858F;*/
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #96858F;
+    color:#E7DFDD !important;
+    cursor:pointer;
+}
+
+/* ================================== */
+/* COLOR SCHEME 2 - Muted and Minimal */
+/* ================================== */
+
+/*color-scheme 2 - Muted and Minimal: 
+    - Dusty: #96858F
+    - Lavendar: #6D7993
+    - Overcast: #909942
+        - #E6DFFF
+    - Paper: #D5D5D5
+*/
+
+.dusty-bg {
+    background-color:#96858F;
+    color:#E7DFDD;
+}
+
+.lavendar-bg {
+    background-color:#6D7993;
+    color:#E7DFDD;
+}
+
+.overcast-bg {
+    background-color:#909942;
+    color:#E7DFDD;
+}
+
+.paper-bg {
+    background-color:#D5D5D5;
+    color:#0E0B16;
+}
+
+.white2-bg {
+    background-color:#ffffff;
+    color:#0E0B16;
+
+}
+
+.paperMenuItem-bg {
+    background-color:#D5D5D5;
+    color:#0E0B16;
+}
+
+.paperMenuItem-bg:hover {
+    background-color:#c7c7c7;
+    color:#0E0B16;
+}
+
+.paperMenuItem-bg:active {
+    background-color:#ffffff;
+    color:#0E0B16;
+}
+/* ================================== */
+
+/* ============================================== */
+/* COLOR SCHEME 1 - Neon tones and stark contrast */
+/* ============================================== */
+
+/* Color-scheme 1 - Neon tones and stark contrast: 
     - Void: #0E0B16
     - Fuschia: #A239CA
     - Jewel: #4717F6
         - #E6DFFF
     - Stark: #E7DFDD
 */
-
 .white-bg {
     background-color:#ffffff;
     color:#0E0B16;
 
 }
 
-.whiteMenuItem-bg {
+/*.whiteMenuItem-bg {
     background-color:#ffffff;
     color:#0E0B16;
 }
@@ -54,7 +156,7 @@ textarea {
 .whiteMenuItem-bg:active {
     background-color:#d2cbc9;
     color:#0E0B16;
-}
+}*/
 
 .void-bg {
     background-color:#0E0B16;
