@@ -10,6 +10,14 @@ namespace AutoStockBroker.Models.Stocks
         public string Name { get; set; }
         public string Href { get; set; }
         public string Industry { get; set; }
+        public string Currency { get; set; }
+        public string MarketCap { get; set; }
+        public string Dividend { get; set; }
+        public string Volatility { get; set; }
+        public string Beta { get; set; }
+        public string PriceEarnings { get; set; }
+        public string PriceSales { get; set; }
+        public string Rek { get; set; }
         Branch privateObject;
         public double DoubleValue { get; set; }
         public string StringValue { get; set; }

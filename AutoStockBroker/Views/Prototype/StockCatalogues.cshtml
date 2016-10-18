@@ -10,15 +10,23 @@
 <h2>Information from @Model.StockCatalogueName</h2>
 <p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
 <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
-<table>
+<table class="mainStockTable">
     <theader>
         <tr class="paper-bg">
             <th>Name</th>
             <th>Industry</th>
-            <th class="numbers">Value</th>
-            <th class="numbers">Amount owned</th>
-            <th class="numbers">Value owned</th>
-            <th class="numbers">Portfolio Weight</th>
+            <th>Currency</th>
+            <th class="numbers">Price</th>
+            <th class="numbers">Nr of shares</th>
+            <th class="numbers">Value (SEK)</th>
+            <th class="numbers">Portfolio Weight (%)</th>
+            <th class="numbers">Market Cap</th>
+            <th class="numbers">Dividend (%)</th>
+            <th class="numbers">Volatility (%)</th>
+            <th class="numbers">Beta</th>
+            <th class="numbers">P/E</th>
+            <th class="numbers">P/S</th>
+            <th class="numbers">Rek</th>
         </tr>
     </theader>
     <tbody>
@@ -27,10 +35,18 @@
             <tr>
                 <td>@Model.LargeCapStocks[i].Name</td>
                 <td>@Model.LargeCapStocks[i].Industry</td>
+                <td>@Model.LargeCapStocks[i].Currency</td>
                 <td class="numbers">@Model.LargeCapStocks[i].StringValue</td>
                 <td class="numbers">@Model.LargeCapStocks[i].AmountOwned</td>
                 <td class="numbers">@Model.LargeCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Weight.ToString("F")%</td>
+                <td class="numbers" style="border-right-color:black; border-right-width:medium">@Model.LargeCapStocks[i].Weight.ToString("F")</td>
+                <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Beta</td>
+                <td class="numbers">@Model.LargeCapStocks[i].PriceEarnings</td>
+                <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Rek</td>
             </tr>
         }
         @for (int i = 0; i < Model.MidCapStocks.Count(); i++)
@@ -38,10 +54,18 @@
             <tr>
                 <td>@Model.MidCapStocks[i].Name</td>
                 <td>@Model.MidCapStocks[i].Industry</td>
+                <td>@Model.LargeCapStocks[i].Currency</td>
                 <td class="numbers">@Model.MidCapStocks[i].StringValue</td>
                 <td class="numbers">@Model.MidCapStocks[i].AmountOwned</td>
                 <td class="numbers">@Model.MidCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers">@Model.MidCapStocks[i].Weight.ToString("F")%</td>
+                <td class="numbers" style="border-right-color:black; border-right-width:medium">@Model.MidCapStocks[i].Weight.ToString("F")</td>
+                <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Beta</td>
+                <td class="numbers">@Model.LargeCapStocks[i].PriceEarnings</td>
+                <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Rek</td>
             </tr>
         }
         @for (int i = 0; i < Model.SmallCapStocks.Count(); i++)
@@ -49,10 +73,18 @@
             <tr>
                 <td>@Model.SmallCapStocks[i].Name</td>
                 <td>@Model.SmallCapStocks[i].Industry</td>
+                <td>@Model.LargeCapStocks[i].Currency</td>
                 <td class="numbers">@Model.SmallCapStocks[i].StringValue</td>
                 <td class="numbers">@Model.SmallCapStocks[i].AmountOwned</td>
                 <td class="numbers">@Model.SmallCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers">@Model.SmallCapStocks[i].Weight.ToString("F")%</td>
+                <td class="numbers" style="border-right-color:black; border-right-width:medium">@Model.SmallCapStocks[i].Weight.ToString("F")</td>
+                <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Beta</td>
+                <td class="numbers">@Model.LargeCapStocks[i].PriceEarnings</td>
+                <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
+                <td class="numbers">@Model.LargeCapStocks[i].Rek</td>
             </tr>
         }
     </tbody>
