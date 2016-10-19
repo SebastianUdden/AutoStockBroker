@@ -1,8 +1,12 @@
 ﻿using AutoStockBroker.Models.Stocks;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -18,6 +22,8 @@ namespace AutoStockBroker.Controllers
     {
         public ActionResult StockCatalogues()
         {
+            AddJSON();
+
             //StockPortfolio stockPortfolio = CreateListOfStocks("Börsdata");
             StockPortfolio stockPortfolio = CreateListOfStocks("Avanza Old List");
 
@@ -94,6 +100,23 @@ namespace AutoStockBroker.Controllers
             return View(avanzaAllCapStockPortfolio);
         }
 
+        private void AddJSON()
+        {
+            using (StreamReader sr = new StreamReader(Server.MapPath("~/Root/Json/AutoSTockBrokerJSON.json")))
+            {
+                //JsonConvert.DeserializeObject<string>(sr.ReadToEnd());
+                string autoStockBrokerJson = sr.ReadToEnd();
+
+                //JObject results = JsonConvert.DeserializeObject<JObject>(autoStockBrokerJson);
+               
+                //string autoStockBrokerJsonFormatted = autoStockBrokerJson.ToString(Formatting.None);
+                //JObject autoStockBrokerJobject = JObject.Parse(autoStockBrokerJsonFormatted);
+
+                //var settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+                //var content = JObject.Parse(JsonConvert.SerializeObject(request, settings));
+            }
+        }
+
         private StockPortfolio ParseAvanzaOldList(string website, StockPortfolio stockPortfolio)
         {
             HtmlDocument html = new HtmlDocument();
@@ -120,17 +143,19 @@ namespace AutoStockBroker.Controllers
             for (int i = 0; i < trs.Count(); i++)
             {
                 string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;                
-                double doubleValue = 0;
-                var tempValue = value.Replace(',', '.');
-                if (tempValue.Length > 6)
+                //var tempValue = value.Replace(',', '.');
+                if (value.Length > 6)
                 {
-                    tempValue = tempValue.Remove(tempValue.Length - 8, 2);
+                    value = value.Remove(value.Length - 8, 2);
                 }
+
+                double doubleValue = 0;
+                bool doubleParseResult = double.TryParse(value, out doubleValue);
 
                 stockPortfolio.Stocks.Add(new Stock {
                     Name = trs.ElementAt(i).Descendants("td").ElementAt(1).Descendants("a").First().InnerText.Trim(),
-                    DoubleValue = Convert.ToDouble(tempValue),
-                    StringValue = string.Format("{0:0.##}", tempValue),
+                    DoubleValue = doubleValue,
+                    StringValue = string.Format("{0:0,##}", value),
                     AmountOwned = 10
                     //StringValue = Regex.Match(tempValue, @"\d+(\,\d{1,2})?").Value
                 });
