@@ -202,3 +202,7 @@ tr:hover {
     border-top:1px solid #D5D5D5;
     border-bottom:1px solid #D5D5D5;
 }
+
+.border-right {
+    border-right:1px dotted #96858F !important;
+}

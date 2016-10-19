@@ -19,7 +19,7 @@
             <th class="numbers">Price</th>
             <th class="numbers">Nr of shares</th>
             <th class="numbers">Value (SEK)</th>
-            <th class="numbers">Portfolio Weight (%)</th>
+            <th class="numbers">Portfolio Weight (%)</th>  
             <th class="numbers">Market Cap</th>
             <th class="numbers">Dividend (%)</th>
             <th class="numbers">Volatility (%)</th>
@@ -39,7 +39,7 @@
                 <td class="numbers">@Model.LargeCapStocks[i].StringValue</td>
                 <td class="numbers">@Model.LargeCapStocks[i].AmountOwned</td>
                 <td class="numbers">@Model.LargeCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers" style="border-right-color:black; border-right-width:medium">@Model.LargeCapStocks[i].Weight.ToString("F")</td>
+                <td class="numbers border-right">@Model.LargeCapStocks[i].Weight.ToString("F")</td>
                 <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
@@ -58,7 +58,7 @@
                 <td class="numbers">@Model.MidCapStocks[i].StringValue</td>
                 <td class="numbers">@Model.MidCapStocks[i].AmountOwned</td>
                 <td class="numbers">@Model.MidCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers" style="border-right-color:black; border-right-width:medium">@Model.MidCapStocks[i].Weight.ToString("F")</td>
+                <td class="numbers">@Model.MidCapStocks[i].Weight.ToString("F")</td>
                 <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
@@ -77,7 +77,7 @@
                 <td class="numbers">@Model.SmallCapStocks[i].StringValue</td>
                 <td class="numbers">@Model.SmallCapStocks[i].AmountOwned</td>
                 <td class="numbers">@Model.SmallCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers" style="border-right-color:black; border-right-width:medium">@Model.SmallCapStocks[i].Weight.ToString("F")</td>
+                <td class="numbers">@Model.SmallCapStocks[i].Weight.ToString("F")</td>
                 <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
