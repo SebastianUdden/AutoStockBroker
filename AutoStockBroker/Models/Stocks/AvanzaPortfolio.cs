@@ -14,5 +14,6 @@ namespace AutoStockBroker.Models.Stocks
         public List<Stock> LargeCapStocks { get; set; }
         public List<Stock> MidCapStocks { get; set; }
         public List<Stock> SmallCapStocks { get; set; }
+        public List<Stock> LargeCapStocksOverview { get; internal set; }
     }
 }

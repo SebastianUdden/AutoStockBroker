@@ -17,7 +17,7 @@ namespace AutoStockBroker.Models.Stocks
         public string Beta { get; set; }
         public string PriceEarnings { get; set; }
         public string PriceSales { get; set; }
-        public string Rek { get; set; }
+        public string Consensus { get; set; }
         Branch privateObject;
         public double DoubleValue { get; set; }
         public string StringValue { get; set; }
