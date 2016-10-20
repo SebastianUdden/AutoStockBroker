@@ -4,51 +4,54 @@
     ViewBag.Title = "Prototype page";
 }
 
-<h2>@ViewBag.Title.</h2>
-<p>@ViewBag.Message</p>
-
-<h2>Information from @Model.StockCatalogueName</h2>
-<p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
-<p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
-
-<table class="mainStockTable">
-    <theader>
-        <tr id="listOfStocksHeader" class="paper-bg">
-            <th><input type="text" class="largeInput" ng-model="name" placeholder="Name"/></th>
-            <th><input type="text" class="largeInput" ng-model="industry" placeholder="Industry"/></th>
-            <th><input type="number" class="smallInput" ng-model="currency" placeholder="CCY" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="price" placeholder="Price" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="numberOfShares" placeholder="Nr of shares" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="value" placeholder="Value" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="weight" placeholder="w (%)" /></th>  
-            <th class="numbers"><input type="number" class="smallInput" ng-model="marketCap" placeholder="Market Cap (MSEK)" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="dividend" placeholder="Div (%)" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="volatility" placeholder="Vol (%)" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="beta" placeholder="Beta" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="pe" placeholder="P/E" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="ps" placeholder="P/S" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="rek" placeholder="Rek" /></th>
-        </tr>
-    </theader>
-    <tbody>
-        @for (int i = 0; i < Model.Stocks.Count(); i++)
-        {
-            <tr>
-                <td>@Model.Stocks[i].Name</td>
-                <td>@Model.Stocks[i].Industry</td>
-                <td>@Model.Stocks[i].Currency</td>
-                <td class="numbers">@Model.Stocks[i].StringValue</td>
-                <td class="numbers">@Model.Stocks[i].AmountOwned</td>
-                <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("# ##0.00")</td>
-                <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
-                <td class="numbers">@Model.Stocks[i].MarketCap</td>
-                <td class="numbers">@Model.Stocks[i].Dividend</td>
-                <td class="numbers">@Model.Stocks[i].Volatility</td>
-                <td class="numbers">@Model.Stocks[i].Beta</td>
-                <td class="numbers">@Model.Stocks[i].PriceEarnings</td>
-                <td class="numbers">@Model.Stocks[i].PriceSales</td>
-                <td class="numbers">@Model.Stocks[i].Consensus</td>
+<div ng-controller="PrototypeController">
+    <p>{{10 + 4}}{{"hello" + name}}</p>
+    <h2>@ViewBag.Title.</h2>
+    <p>@ViewBag.Message</p>
+    <h2>Information from @Model.StockCatalogueName</h2>
+    <p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
+    <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
+    <table class="mainStockTable">
+        <theader>
+            <tr class="paper-bg">
+                <th><input type="text" class="smallInput" ng-model="name" placeholder="Name" /></th>
+                <th><input type="text" class="smallInput" ng-model="industry" placeholder="Industry" /></th>
+                <th><input type="number" style="width:4vw;" ng-model="currency" placeholder="Currency" /></th>
+                <th class="numbers smallInput"><input type="number" class="smallInput" ng-model="price" placeholder="Price" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="numberOfShares" placeholder="Nr of shares" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="value" placeholder="Value (SEK)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="weight" placeholder="Portfolio Weight (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="marketCap" placeholder="Market Cap" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="dividend" placeholder="Dividend (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="volatility" placeholder="Volatility (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="beta" placeholder="Beta" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="pe" placeholder="P/E" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="ps" placeholder="P/S" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="rek" placeholder="Rek" /></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </theader>
+        @*ng-repeat="stock in @Model.Stocks.Count() | filter:query | orderBy: 'Name' "*@
+        @*<tr><td>{{stock.Name}}</td></tr>*@
+        <tbody>
+            @for (int i = 0; i < Model.Stocks.Count(); i++)
+            {
+                <tr>
+                    <td>@Model.Stocks[i].Name</td>
+                    <td>@Model.Stocks[i].Industry</td>
+                    <td>@Model.Stocks[i].Currency</td>
+                    <td class="numbers">@Model.Stocks[i].StringValue</td>
+                    <td class="numbers">@Model.Stocks[i].AmountOwned</td>
+                    <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
+                    <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
+                    <td class="numbers">@Model.Stocks[i].MarketCap</td>
+                    <td class="numbers">@Model.Stocks[i].Dividend</td>
+                    <td class="numbers">@Model.Stocks[i].Volatility</td>
+                    <td class="numbers">@Model.Stocks[i].Beta</td>
+                    <td class="numbers">@Model.Stocks[i].PriceEarnings</td>
+                    <td class="numbers">@Model.Stocks[i].PriceSales</td>
+                    <td class="numbers">@Model.Stocks[i].Consensus</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

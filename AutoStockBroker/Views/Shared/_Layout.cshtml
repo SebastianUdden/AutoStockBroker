@@ -1,12 +1,24 @@
 ﻿<!DOCTYPE html>
-<html ng-app>
+<html ng-app="autoStockBroker">
 <head>
     <META http-equiv='Content-Type' content='text/html; charset=UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - AutoStockBroker</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Root/Angular/app.js")
+    @RenderSection("scripts", required: false)
+    <script>
+    var app = angular.module('autoStockBroker', []);
+    app.controller('PrototypeController', function ($scope) {
+    $scope.name = 'World';
+    });
+    </script>
 </head>
 <body class="white2-bg">
     <div class="navbar paper-bg navbar-inverse navbar-fixed-top">
