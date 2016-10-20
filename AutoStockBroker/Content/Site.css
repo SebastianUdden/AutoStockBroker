@@ -206,3 +206,7 @@ tr:hover {
 .border-right {
     border-right:1px dotted #96858F !important;
 }
+
+.smallInput {
+    width:20px !important;
+}
