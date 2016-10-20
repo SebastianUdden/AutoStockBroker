@@ -1,4 +1,4 @@
-﻿@model AutoStockBroker.Models.Stocks.StockPortfolio
+﻿@model AutoStockBroker.Models.StockPortfolio
 
 @{
     ViewBag.Title = "Prototype page";
@@ -10,23 +10,24 @@
 <h2>Information from @Model.StockCatalogueName</h2>
 <p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
 <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
+
 <table class="mainStockTable">
     <theader>
         <tr class="paper-bg">
-            <th>Name</th>
-            <th>Industry</th>
-            <th>Currency</th>
-            <th class="numbers">Price</th>
-            <th class="numbers">Nr of shares</th>
-            <th class="numbers">Value (SEK)</th>
-            <th class="numbers">Portfolio Weight (%)</th>  
-            <th class="numbers">Market Cap</th>
-            <th class="numbers">Dividend (%)</th>
-            <th class="numbers">Volatility (%)</th>
-            <th class="numbers">Beta</th>
-            <th class="numbers">P/E</th>
-            <th class="numbers">P/S</th>
-            <th class="numbers">Rek</th>
+            <th><input type="text" ng-model="name" placeholder="Name"/></th>
+            <th><input type="text" ng-model="industry" placeholder="Industry"/></th>
+            <th><input type="number" ng-model="currency" placeholder="Currency" /></th>
+            <th class="numbers"><input type="number" ng-model="price" placeholder="Price" /></th>
+            <th class="numbers"><input type="number" ng-model="industry" placeholder="Industry" />Nr of shares</th>
+            <th class="numbers"><input type="number" ng-model="value" placeholder="Value (SEK)" /></th>
+            <th class="numbers"><input type="number" ng-model="weight" placeholder="Portfolio Weight (%)" /></th>  
+            <th class="numbers"><input type="number" ng-model="marketCap" placeholder="Market Cap" /></th>
+            <th class="numbers"><input type="number" ng-model="dividend" placeholder="Dividend (%)" /></th>
+            <th class="numbers"><input type="number" ng-model="volatility" placeholder="Volatility (%)" /></th>
+            <th class="numbers"><input type="number" ng-model="beta" placeholder="Beta" /></th>
+            <th class="numbers"><input type="number" ng-model="pe" placeholder="P/E" /></th>
+            <th class="numbers"><input type="number" ng-model="ps" placeholder="P/S" /></th>
+            <th class="numbers"><input type="number" ng-model="rek" placeholder="Rek" /></th>
         </tr>
     </theader>
     <tbody>
@@ -49,43 +50,5 @@
                 <td class="numbers">@Model.Stocks[i].Consensus</td>
             </tr>
         }
-        @*@for (int i = 0; i < Model.MidCapStocks.Count(); i++)
-        {
-            <tr>
-                <td>@Model.MidCapStocks[i].Name</td>
-                <td>@Model.MidCapStocks[i].Industry</td>
-                <td>@Model.LargeCapStocks[i].Currency</td>
-                <td class="numbers">@Model.MidCapStocks[i].StringValue</td>
-                <td class="numbers">@Model.MidCapStocks[i].AmountOwned</td>
-                <td class="numbers">@Model.MidCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers">@Model.MidCapStocks[i].Weight.ToString("F")</td>
-                <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Beta</td>
-                <td class="numbers">@Model.LargeCapStocks[i].PriceEarnings</td>
-                <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Consensus</td>
-            </tr>
-        }
-        @for (int i = 0; i < Model.SmallCapStocks.Count(); i++)
-        {
-            <tr>
-                <td>@Model.SmallCapStocks[i].Name</td>
-                <td>@Model.SmallCapStocks[i].Industry</td>
-                <td>@Model.LargeCapStocks[i].Currency</td>
-                <td class="numbers">@Model.SmallCapStocks[i].StringValue</td>
-                <td class="numbers">@Model.SmallCapStocks[i].AmountOwned</td>
-                <td class="numbers">@Model.SmallCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers">@Model.SmallCapStocks[i].Weight.ToString("F")</td>
-                <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Beta</td>
-                <td class="numbers">@Model.LargeCapStocks[i].PriceEarnings</td>
-                <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Consensus</td>
-            </tr>
-        }*@
     </tbody>
 </table>

@@ -25,28 +25,33 @@ namespace AutoStockBroker.Controllers
             //AddJSON();
 
             //StockPortfolio stockPortfolio = CreateListOfStocks("Börsdata");
-            StockPortfolio stockPortfolio = new StockPortfolio("Avanza Old List");
-
-            StockPortfolio avanzaLargeCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
+            StockPortfolio largeCapPortfolio = new StockPortfolio("Large Cap");
+            StockPortfolio avanzaLargeCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", largeCapPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolio = Calculator.SetStockParameters(avanzaLargeCapStockPortfolio);
-
             StockPortfolio avanzaLargeCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaLargeCapStockPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaLargeCapStockPortfolioOverview);
 
-            //StockPortfolio avanzaMidCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
-            //StockPortfolio viewAvanzaMidCapStockPortfolio = SetStockParameters(avanzaMidCapStockPortfolio);
+            StockPortfolio midCapPortfolio = new StockPortfolio("Mid Cap");
+            StockPortfolio avanzaMidCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", midCapPortfolio);
+            StockPortfolio viewAvanzaMidCapStockPortfolio = Calculator.SetStockParameters(avanzaMidCapStockPortfolio);
+            StockPortfolio avanzaMidCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaMidCapStockPortfolio);
+            StockPortfolio viewAvanzaMidCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaMidCapStockPortfolioOverview);
 
-            //StockPortfolio avanzaSmallCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
-            //StockPortfolio viewAvanzaSmallCapStockPortfolio = SetStockParameters(avanzaSmallCapStockPortfolio);
 
-            AvanzaPortfolio avanzaAllCapStockPortfolio = new AvanzaPortfolio()
-            {
-                StockCatalogueName = "AvanzaAllCapStockPortfolio",
-                LargeCapStocks = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
-                //LargeCapStocksOverview = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
-                //MidCapStocks = viewAvanzaMidCapStockPortfolio.Stocks,
-                //SmallCapStocks = viewAvanzaSmallCapStockPortfolio.Stocks,
-            };
+            StockPortfolio smallCapPortfolio = new StockPortfolio("Small Cap");
+            StockPortfolio avanzaSmallCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", smallCapPortfolio);
+            StockPortfolio viewAvanzaSmallCapStockPortfolio = Calculator.SetStockParameters(avanzaSmallCapStockPortfolio);
+            StockPortfolio avanzaSmallCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaSmallCapStockPortfolio);
+            StockPortfolio viewAvanzaSmallCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaSmallCapStockPortfolioOverview);
+
+            //AvanzaPortfolio avanzaAllCapStockPortfolio = new AvanzaPortfolio()
+            //{
+            //    StockCatalogueName = "AvanzaAllCapStockPortfolio",
+            //    LargeCapStocks = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
+            //    //LargeCapStocksOverview = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
+            //    MidCapStocks = viewAvanzaMidCapStockPortfolio.Stocks,
+            //    SmallCapStocks = viewAvanzaSmallCapStockPortfolio.Stocks,
+            //};
 
             #region NotUsed
             //stockPortfolio.Stocks = new []{
@@ -97,9 +102,34 @@ namespace AutoStockBroker.Controllers
             //    }
             //};
             #endregion
+            StockPortfolio allAvanzaStocks = new StockPortfolio("Avanza Stocks");
+            allAvanzaStocks.Stocks = AddAllStocks(viewAvanzaLargeCapStockPortfolioOverview.Stocks, viewAvanzaMidCapStockPortfolioOverview.Stocks, viewAvanzaSmallCapStockPortfolioOverview.Stocks);
+            allAvanzaStocks.Stocks = allAvanzaStocks.Stocks.OrderBy(x => x.Name).ToList();
+            StockPortfolio allAvanzaStocksView = Calculator.SetStockParameters(allAvanzaStocks);
+
 
             ViewBag.Message = "These are the stocks currently added.";
-            return View(viewAvanzaLargeCapStockPortfolioOverview);
+            return View(allAvanzaStocksView);
+        }
+
+        public static List<Stock> AddAllStocks(List<Stock> smallCap, List<Stock> midCap, List<Stock> largeCap)
+        {
+            List<Stock> allCaps = new List<Stock>();
+
+            foreach (var stock in smallCap)
+            {
+                allCaps.Add(stock);
+            }
+            foreach (var stock in midCap)
+            {
+                allCaps.Add(stock);
+            }
+            foreach (var stock in largeCap)
+            {
+                allCaps.Add(stock);
+            }
+
+            return allCaps;
         }
     }
 }

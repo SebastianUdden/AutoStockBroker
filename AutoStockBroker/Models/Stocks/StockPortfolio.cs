@@ -15,7 +15,6 @@ namespace AutoStockBroker.Models
 
         public StockPortfolio(string stockCatalogueName)
         {
-            Stocks = new List<Stock>();
             StockCatalogueName = stockCatalogueName;
             TotalValue = 0;
         }
