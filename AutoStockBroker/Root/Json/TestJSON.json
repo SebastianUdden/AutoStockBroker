@@ -1,0 +1,43 @@
+{
+  "applicationName": "AutoStockBrokerJSON",
+  "stockLists": [
+    {
+      "name": "Large Cap Stockholm",
+      "industries": [
+        {
+          "name": "Dagligvaror"
+        },
+        {
+          "name": "Energi"
+        },
+        {
+          "name": "Finans & Fastighet"
+        },
+        {
+          "name": "Hälsovård"
+        },
+        {
+          "name": "Industri & tjänster"
+        },
+        {
+          "name": "Informationsteknik"
+        },
+        {
+          "name": "Material"
+        },
+        {
+          "name": "Sällanköpsvaror & tjänster"
+        },
+        {
+          "name": "Telekomoperatörer"
+        }
+      ]
+    },
+    {
+      "name": "Mid Cap Stockholm"
+    },
+    {
+      "name": "Small Cap Stockholm"
+    }
+  ]
+}

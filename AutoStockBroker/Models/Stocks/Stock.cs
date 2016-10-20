@@ -58,6 +58,5 @@ namespace AutoStockBroker.Models.Stocks
         HotelRestaurangOchNöje = 26,
         Media = 27,
         Återförsäljare = 28,
-
     }
 }

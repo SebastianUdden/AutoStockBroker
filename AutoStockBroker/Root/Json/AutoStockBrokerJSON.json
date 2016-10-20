@@ -1,381 +1,88 @@
 {
-	"applicationName":"AutoStockBrokerJSON",
-	"stockLists":
-	[
-		{
-			"name":"Large Cap Stockholm",
-			"industries":
-			[
-				{
-					"name":"Dagligvaror"
-				},
-				{
-					"name":"Energi"
-				},
-				{
-					"name":"Finans & Fastighet"
-				},
-				{
-					"name":"Hälsovård"
-				},
-				{
-					"name":"Industri & tjänster"
-				},
-				{
-					"name":"Informationsteknik"
-				},
-				{
-					"name":"Material"
-				},
-				{
-					"name":"Sällanköpsvaror & tjänster"
-				},
-				{
-					"name":"Telekomoperatörer"
-				}
-			]
-		},
-		{
-			"name":"Mid Cap Stockholm"		
-		},
-		{
-			"name":"Small Cap Stockholm"			
-		},
-	],
-	"stocks":
-	[
-		{
-			"name":"AAK",
-			"listName":"Large Cap Stockholm",						
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Sällanköpsvaror"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"ABB",
-			"listName":"Large Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Industri"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},	
-		{
-			"name":"AcadeMedia",
-			"listName":"Mid Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Dagligvaror"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Acando",
-			"listName":"Small Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Informationsteknik"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Active Biotech",
-			"listName":"Mid Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Hälsovård"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"AddLife",
-			"listName":"Mid Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Hälsovård"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"AddLife",
-			"listName":"Mid Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Hälsovård"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Addnode",
-			"listName":"Small Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Informationsteknik"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Addtech",
-			"listName":"Mid Cap Stockholm",			
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Industri"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Africa Oil",
-			"listName":"Mid Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Industri"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Alfa laval",
-			"listName":"Large Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Industri"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Alimak",
-			"listName":"Mid Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Industri"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"AllTele",
-			"listName":"Small Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Telekomoperatörer"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Anoto",
-			"listName":"Small Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Informationsteknik"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Arcam",
-			"listName":"Mid Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Informationsteknik"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Arctic Paper",
-			"listName":"Small Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Material"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Arise",
-			"listName":"Small Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Kraftförsörjning"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Assa Abloy",
-			"listName":"Large Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Industri"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"AstraZeneca",
-			"listName":"Large Cap Stockholm",
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Hälsovård"
-				}
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Axfood",		
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Dagligvaror"
-				}				
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Betsson B",		
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Dagligvaror"
-				},
-{
-					"name":"Sällanköpsvaror"
-				}				
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-		{
-			"name":"Betsson B",		
-			"country":"Sverige",
-			"connectedIndustries":
-			[
-				{
-					"name":"Dagligvaror"
-				},
-{
-					"name":"Sällanköpsvaror"
-				}				
-			],
-			"value":"0",
-			"amountOwned":"0",
-			"valueOwned":"0",
-			"weight":"0"
-		},
-	]
+  "applicationName": "AutoStockBrokerJSON",
+  "stockLists": [
+    {
+      "name": "Large Cap Stockholm",
+      "industries": [
+        {
+          "name": "Dagligvaror"
+        },
+        {
+          "name": "Energi"
+        },
+        {
+          "name": "Finans & Fastighet"
+        },
+        {
+          "name": "Hälsovård"
+        },
+        {
+          "name": "Industri & tjänster"
+        },
+        {
+          "name": "Informationsteknik"
+        },
+        {
+          "name": "Material"
+        },
+        {
+          "name": "Sällanköpsvaror & tjänster"
+        },
+        {
+          "name": "Telekomoperatörer"
+        }
+      ]
+    },
+    {
+      "name": "Mid Cap Stockholm"
+    },
+    {
+      "name": "Small Cap Stockholm"
+    }
+  ],
+  "stocks": [
+    {
+      "name": "AAK",
+      "country": "Sverige",
+      "industry": "Sällanköpsvaror",
+      "currency": "SEK",
+      "price": "200",
+      "numberOfSharesOwned": "10",
+      "valueOwned": "0",
+      "portfolioWeight": "0",
+      "marketCap": "0",
+      "dividend": "0",
+      "volatility": "0",
+      "beta": "0",
+      "priceEarnings": "0",
+      "priceSales": "0",
+      "consensus": {
+        "number": "0",
+        "string": ""
+      },
+      "listName": "Large Cap Stockholm"
+    },
+    {
+      "name": "ABB",
+      "country": "Sverige",
+      "industry": "Industri",
+      "currency": "SEK",
+      "price": "600",
+      "numberOfSharesOwned": "210",
+      "valueOwned": "0",
+      "portfolioWeight": "0",
+      "marketCap": "0",
+      "dividend": "0",
+      "volatility": "0",
+      "beta": "0",
+      "priceEarnings": "0",
+      "priceSales": "0",
+      "consensus": {
+        "number": "0",
+        "string": ""
+      },
+      "listName": "Large Cap Stockholm"
+    }
+  ]
 }
+	

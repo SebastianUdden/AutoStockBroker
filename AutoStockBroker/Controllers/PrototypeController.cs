@@ -100,15 +100,27 @@ namespace AutoStockBroker.Controllers
             return View(avanzaAllCapStockPortfolio);
         }
 
-        private void AddJSON()
+        private List<Stock> AddJSON(List<Stock> stocks)
         {
             using (StreamReader sr = new StreamReader(Server.MapPath("~/Root/Json/AutoSTockBrokerJSON.json")))
             {
+                
                 //JsonConvert.DeserializeObject<string>(sr.ReadToEnd());
                 string autoStockBrokerJson = sr.ReadToEnd();
+                JObject autoStockBrokerJobject = JObject.Parse(autoStockBrokerJson);
 
+                JToken jStocks = autoStockBrokerJobject["stocks"];
+                foreach (var stock in jStocks)
+                {
+                    stocks.Add(new Stock()
+                    {
+                        Name = stock["name"].Value<string>(),
+
+                    });
+                }
+                return stocks;
                 //JObject results = JsonConvert.DeserializeObject<JObject>(autoStockBrokerJson);
-               
+
                 //string autoStockBrokerJsonFormatted = autoStockBrokerJson.ToString(Formatting.None);
                 //JObject autoStockBrokerJobject = JObject.Parse(autoStockBrokerJsonFormatted);
 
