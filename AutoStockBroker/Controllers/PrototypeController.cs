@@ -22,9 +22,6 @@ namespace AutoStockBroker.Controllers
     {
         public ActionResult StockCatalogues()
         {
-            //AddJSON();
-
-            //StockPortfolio stockPortfolio = CreateListOfStocks("Börsdata");
             StockPortfolio largeCapPortfolio = new StockPortfolio("Large Cap");
             StockPortfolio avanzaLargeCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", largeCapPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolio = Calculator.SetStockParameters(avanzaLargeCapStockPortfolio);
@@ -107,7 +104,8 @@ namespace AutoStockBroker.Controllers
             allAvanzaStocks.Stocks = allAvanzaStocks.Stocks.OrderBy(x => x.Name).ToList();
             StockPortfolio allAvanzaStocksView = Calculator.SetStockParameters(allAvanzaStocks);
 
-
+            string allAvanzaStocksJson = JsonCreator.CreateJson(allAvanzaStocksView);
+            JsonCreator.SaveToRoot(allAvanzaStocksJson);
             ViewBag.Message = "These are the stocks currently added.";
             return View(allAvanzaStocksView);
         }

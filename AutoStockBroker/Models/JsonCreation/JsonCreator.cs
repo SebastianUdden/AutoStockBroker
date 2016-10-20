@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using HtmlAgilityPack;
 using AutoStockBroker.Models;
-
+using System.Web.Hosting;
 
 namespace AutoStockBroker.Models
 {
@@ -50,6 +50,16 @@ namespace AutoStockBroker.Models
                 //var settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
                 //var content = JObject.Parse(JsonConvert.SerializeObject(request, settings));
             }
+        }
+
+        public static string CreateJson(object obj)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+        }
+
+        public static void SaveToRoot(string json)
+        {
+            File.WriteAllText(HostingEnvironment.ApplicationPhysicalPath + @"Root\Json\stocks.json", json);
         }
     }
 }
