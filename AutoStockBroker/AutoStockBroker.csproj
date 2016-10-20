@@ -179,12 +179,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HtmlParsers\AvanzaParsers.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Stocks\Consensus.cs" />
     <Compile Include="Models\Stocks\Stock.cs" />
     <Compile Include="Models\Stocks\AvanzaPortfolio.cs" />
     <Compile Include="Models\Stocks\StockPortfolio.cs" />
+    <Compile Include="Models\Tools\CharHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

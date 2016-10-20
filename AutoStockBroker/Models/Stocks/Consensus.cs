@@ -1,4 +1,4 @@
-﻿namespace AutoStockBroker.Models.Stocks
+﻿namespace AutoStockBroker.Models
 {
     public class Consensus
     {

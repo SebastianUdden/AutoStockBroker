@@ -1,4 +1,4 @@
-﻿using AutoStockBroker.Models.Stocks;
+﻿using AutoStockBroker.Models;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -30,7 +30,7 @@ namespace AutoStockBroker.Controllers
             StockPortfolio avanzaLargeCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolio = SetStockParameters(avanzaLargeCapStockPortfolio);
 
-            StockPortfolio avanzaLargeCapStockPortfolioOverview = ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaLargeCapStockPortfolio);
+            StockPortfolio avanzaLargeCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaLargeCapStockPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolioOverview = SetStockParameters(avanzaLargeCapStockPortfolioOverview);
 
             //StockPortfolio avanzaMidCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
@@ -131,65 +131,7 @@ namespace AutoStockBroker.Controllers
             }
         }
 
-        private StockPortfolio ParseAvanzaOldListOverview(string website, StockPortfolio stockPortfolio)
-        {
-            HtmlDocument html = new HtmlDocument();
-            html.LoadHtml(new WebClient().DownloadString(website));
-            HtmlNode root = html.DocumentNode;
-            var contentTable = root.Descendants().Where(n => n.GetAttributeValue("id", "").Equals("contentTable"));
-            var contentTableData = contentTable.First();
-            var tbody = contentTableData.Descendants("tbody").First();
-            var trs = tbody.Descendants("tr");
-
-            for (int i = 0; i < trs.Count(); i++)
-            {
-                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
-                //var tempValue = value.Replace(',', '.');
-                //if (value.Length > 6)
-                //{
-                //    value = value.Remove(value.Length - 8, 2);
-                //}
-
-                //double doubleValue = 0;
-                //bool doubleParseResult = double.TryParse(value, out doubleValue);
-                string marketCap = RemoveSpecialCharacters(trs.ElementAt(i).Descendants("td").ElementAt(2).InnerText);
-                stockPortfolio.Stocks[i].MarketCap = marketCap;
-                stockPortfolio.Stocks[i].Dividend = trs.ElementAt(i).Descendants("td").ElementAt(3).InnerText;
-                stockPortfolio.Stocks[i].Volatility = trs.ElementAt(i).Descendants("td").ElementAt(4).InnerText;
-                stockPortfolio.Stocks[i].Beta = trs.ElementAt(i).Descendants("td").ElementAt(5).InnerText;
-                stockPortfolio.Stocks[i].PriceEarnings = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
-                stockPortfolio.Stocks[i].PriceSales = trs.ElementAt(i).Descendants("td").ElementAt(7).InnerText;
-                stockPortfolio.Stocks[i].Consensus = trs.ElementAt(i).Descendants("td").ElementAt(8).InnerText;
-
-                //string aTag = trs.ElementAt(i).OuterHtml.ToString();
-                //int pFrom = aTag.IndexOf("href=\"/") + "href=\"/".Length;
-                //int pTo = aTag.LastIndexOf("/nyckeltal");
-                //string href = aTag.Substring(pFrom, pTo - pFrom);
-
-                //stockPortfolio.Stocks.Add(new Stock
-                //{
-                //    Name = descendants.ElementAt(i).InnerText.Trim().Replace(".", ""),
-                //    Href = href,
-                //    AmountOwned = 10
-                //});
-            };
-
-            return stockPortfolio;
-        }
-
-        public static string RemoveSpecialCharacters(string str)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (char c in str)
-            {
-                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_')
-                {
-                    sb.Append(c);
-                }
-            }
-            return sb.ToString();
-        }
-
+        
         private StockPortfolio ParseAvanzaOldList(string website, StockPortfolio stockPortfolio)
         {
             HtmlDocument html = new HtmlDocument();
@@ -371,22 +313,6 @@ namespace AutoStockBroker.Controllers
 
             //return source;
             #endregion
-        }
-
-        public string ToTitleCase(string str)
-        {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
-        }
-
-        public string FirstLetterToUpper(string str)
-        {
-            if (str == null)
-                return null;
-
-            if (str.Length > 1)
-                return char.ToUpper(str[0]) + str.Substring(1);
-
-            return str.ToUpper();
         }
     }
 }

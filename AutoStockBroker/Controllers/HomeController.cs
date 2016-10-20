@@ -1,4 +1,4 @@
-﻿using AutoStockBroker.Models.Stocks;
+﻿using AutoStockBroker.Models;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
