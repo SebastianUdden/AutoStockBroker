@@ -208,5 +208,9 @@ tr:hover {
 }
 
 .smallInput {
-    width:20px !important;
+    width:7em !important;
+}
+
+.largeInput {
+    width:15em !important;
 }

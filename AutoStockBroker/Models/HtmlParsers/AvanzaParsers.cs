@@ -42,6 +42,7 @@ namespace AutoStockBroker.Models
                     value = value.Remove(value.Length - 8, 2);
                 }
 
+                value = value.Replace(",", ".");
                 double doubleValue = 0;
                 bool doubleParseResult = double.TryParse(value, out doubleValue);
 
@@ -89,13 +90,28 @@ namespace AutoStockBroker.Models
 
                 //double doubleValue = 0;
                 //bool doubleParseResult = double.TryParse(value, out doubleValue);
+
                 string marketCap = CharHandling.RemoveSpecialCharacters(trs.ElementAt(i).Descendants("td").ElementAt(2).InnerText);
-                stockPortfolio.Stocks[i].MarketCap = marketCap;
-                stockPortfolio.Stocks[i].Dividend = trs.ElementAt(i).Descendants("td").ElementAt(3).InnerText;
-                stockPortfolio.Stocks[i].Volatility = trs.ElementAt(i).Descendants("td").ElementAt(4).InnerText;
-                stockPortfolio.Stocks[i].Beta = trs.ElementAt(i).Descendants("td").ElementAt(5).InnerText;
-                stockPortfolio.Stocks[i].PriceEarnings = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
-                stockPortfolio.Stocks[i].PriceSales = trs.ElementAt(i).Descendants("td").ElementAt(7).InnerText;
+                string marketCapCleansed = marketCap.Remove(marketCap.Length - 4, 4);
+                int marketCapInt = Convert.ToInt32(marketCapCleansed);
+                string marketCapFormatted = marketCapInt.ToString("# ##0");
+                stockPortfolio.Stocks[i].MarketCap = marketCapFormatted;
+
+                string dividend = trs.ElementAt(i).Descendants("td").ElementAt(3).InnerText;
+                stockPortfolio.Stocks[i].Dividend = dividend.Replace(",", ".");
+
+                string volatility = trs.ElementAt(i).Descendants("td").ElementAt(4).InnerText;
+                stockPortfolio.Stocks[i].Volatility = volatility.Replace(",", ".");
+
+                string beta = trs.ElementAt(i).Descendants("td").ElementAt(5).InnerText;
+                stockPortfolio.Stocks[i].Beta = beta.Replace(",", ".");
+
+                string priceEarnings = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
+                stockPortfolio.Stocks[i].PriceEarnings = priceEarnings.Replace(",", ".");
+
+                string priceSales = trs.ElementAt(i).Descendants("td").ElementAt(7).InnerText;
+                stockPortfolio.Stocks[i].PriceSales = priceSales.Replace(",", ".");
+                
                 stockPortfolio.Stocks[i].Consensus = trs.ElementAt(i).Descendants("td").ElementAt(8).InnerText;
 
                 //string aTag = trs.ElementAt(i).OuterHtml.ToString();

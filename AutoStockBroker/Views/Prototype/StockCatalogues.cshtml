@@ -13,17 +13,17 @@
 
 <table class="mainStockTable">
     <theader>
-        <tr class="paper-bg">
-            <th><input type="text" class="smallInput" ng-model="name" placeholder="Name"/></th>
-            <th><input type="text" class="smallInput" ng-model="industry" placeholder="Industry"/></th>
-            <th><input type="number" style="width:4vw;" ng-model="currency" placeholder="Currency" /></th>
-            <th class="numbers smallInput"><input type="number" class="smallInput" ng-model="price" placeholder="Price" /></th>
+        <tr id="listOfStocksHeader" class="paper-bg">
+            <th><input type="text" class="largeInput" ng-model="name" placeholder="Name"/></th>
+            <th><input type="text" class="largeInput" ng-model="industry" placeholder="Industry"/></th>
+            <th><input type="number" class="smallInput" ng-model="currency" placeholder="CCY" /></th>
+            <th class="numbers"><input type="number" class="smallInput" ng-model="price" placeholder="Price" /></th>
             <th class="numbers"><input type="number" class="smallInput" ng-model="numberOfShares" placeholder="Nr of shares" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="value" placeholder="Value (SEK)" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="weight" placeholder="Portfolio Weight (%)" /></th>  
-            <th class="numbers"><input type="number" class="smallInput" ng-model="marketCap" placeholder="Market Cap" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="dividend" placeholder="Dividend (%)" /></th>
-            <th class="numbers"><input type="number" class="smallInput" ng-model="volatility" placeholder="Volatility (%)" /></th>
+            <th class="numbers"><input type="number" class="smallInput" ng-model="value" placeholder="Value" /></th>
+            <th class="numbers"><input type="number" class="smallInput" ng-model="weight" placeholder="w (%)" /></th>  
+            <th class="numbers"><input type="number" class="smallInput" ng-model="marketCap" placeholder="Market Cap (MSEK)" /></th>
+            <th class="numbers"><input type="number" class="smallInput" ng-model="dividend" placeholder="Div (%)" /></th>
+            <th class="numbers"><input type="number" class="smallInput" ng-model="volatility" placeholder="Vol (%)" /></th>
             <th class="numbers"><input type="number" class="smallInput" ng-model="beta" placeholder="Beta" /></th>
             <th class="numbers"><input type="number" class="smallInput" ng-model="pe" placeholder="P/E" /></th>
             <th class="numbers"><input type="number" class="smallInput" ng-model="ps" placeholder="P/S" /></th>
@@ -39,7 +39,7 @@
                 <td>@Model.Stocks[i].Currency</td>
                 <td class="numbers">@Model.Stocks[i].StringValue</td>
                 <td class="numbers">@Model.Stocks[i].AmountOwned</td>
-                <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
+                <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("# ##0.00")</td>
                 <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
                 <td class="numbers">@Model.Stocks[i].MarketCap</td>
                 <td class="numbers">@Model.Stocks[i].Dividend</td>
