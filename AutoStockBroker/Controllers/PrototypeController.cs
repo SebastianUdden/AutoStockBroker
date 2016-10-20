@@ -22,7 +22,7 @@ namespace AutoStockBroker.Controllers
     {
         public ActionResult StockCatalogues()
         {
-            AddJSON();
+            //AddJSON();
 
             //StockPortfolio stockPortfolio = CreateListOfStocks("Börsdata");
             StockPortfolio stockPortfolio = CreateListOfStocks("Avanza Old List");
@@ -30,24 +30,24 @@ namespace AutoStockBroker.Controllers
             StockPortfolio avanzaLargeCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolio = SetStockParameters(avanzaLargeCapStockPortfolio);
 
-            StockPortfolio avanzaLargeCapStockPortfolioOverview = ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", stockPortfolio);
+            StockPortfolio avanzaLargeCapStockPortfolioOverview = ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaLargeCapStockPortfolio);
             StockPortfolio viewAvanzaLargeCapStockPortfolioOverview = SetStockParameters(avanzaLargeCapStockPortfolioOverview);
 
-            StockPortfolio avanzaMidCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
-            StockPortfolio viewAvanzaMidCapStockPortfolio = SetStockParameters(avanzaMidCapStockPortfolio);
+            //StockPortfolio avanzaMidCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
+            //StockPortfolio viewAvanzaMidCapStockPortfolio = SetStockParameters(avanzaMidCapStockPortfolio);
 
-            StockPortfolio avanzaSmallCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
-            StockPortfolio viewAvanzaSmallCapStockPortfolio = SetStockParameters(avanzaSmallCapStockPortfolio);
+            //StockPortfolio avanzaSmallCapStockPortfolio = ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", stockPortfolio);
+            //StockPortfolio viewAvanzaSmallCapStockPortfolio = SetStockParameters(avanzaSmallCapStockPortfolio);
 
             AvanzaPortfolio avanzaAllCapStockPortfolio = new AvanzaPortfolio()
             {
                 StockCatalogueName = "AvanzaAllCapStockPortfolio",
-                LargeCapStocks = viewAvanzaLargeCapStockPortfolio.Stocks,
+                LargeCapStocks = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
                 //LargeCapStocksOverview = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
-                MidCapStocks = viewAvanzaMidCapStockPortfolio.Stocks,
-                SmallCapStocks = viewAvanzaSmallCapStockPortfolio.Stocks,
+                //MidCapStocks = viewAvanzaMidCapStockPortfolio.Stocks,
+                //SmallCapStocks = viewAvanzaSmallCapStockPortfolio.Stocks,
             };
-            
+
             #region NotUsed
             //stockPortfolio.Stocks = new []{
             //    new Stock
@@ -99,14 +99,14 @@ namespace AutoStockBroker.Controllers
             #endregion
 
             ViewBag.Message = "These are the stocks currently added.";
-            return View(avanzaAllCapStockPortfolio);
+            return View(viewAvanzaLargeCapStockPortfolioOverview);
         }
 
         private List<Stock> AddJSON(List<Stock> stocks)
         {
             using (StreamReader sr = new StreamReader(Server.MapPath("~/Root/Json/AutoSTockBrokerJSON.json")))
             {
-                
+
                 //JsonConvert.DeserializeObject<string>(sr.ReadToEnd());
                 string autoStockBrokerJson = sr.ReadToEnd();
                 JObject autoStockBrokerJobject = JObject.Parse(autoStockBrokerJson);
@@ -152,8 +152,8 @@ namespace AutoStockBroker.Controllers
 
                 //double doubleValue = 0;
                 //bool doubleParseResult = double.TryParse(value, out doubleValue);
-
-                stockPortfolio.Stocks[i].MarketCap = trs.ElementAt(i).Descendants("td").ElementAt(2).InnerText;
+                string marketCap = RemoveSpecialCharacters(trs.ElementAt(i).Descendants("td").ElementAt(2).InnerText);
+                stockPortfolio.Stocks[i].MarketCap = marketCap;
                 stockPortfolio.Stocks[i].Dividend = trs.ElementAt(i).Descendants("td").ElementAt(3).InnerText;
                 stockPortfolio.Stocks[i].Volatility = trs.ElementAt(i).Descendants("td").ElementAt(4).InnerText;
                 stockPortfolio.Stocks[i].Beta = trs.ElementAt(i).Descendants("td").ElementAt(5).InnerText;
@@ -175,6 +175,19 @@ namespace AutoStockBroker.Controllers
             };
 
             return stockPortfolio;
+        }
+
+        public static string RemoveSpecialCharacters(string str)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in str)
+            {
+                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_')
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
         }
 
         private StockPortfolio ParseAvanzaOldList(string website, StockPortfolio stockPortfolio)
@@ -202,7 +215,7 @@ namespace AutoStockBroker.Controllers
 
             for (int i = 0; i < trs.Count(); i++)
             {
-                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;                
+                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
                 //var tempValue = value.Replace(',', '.');
                 if (value.Length > 6)
                 {
@@ -212,7 +225,8 @@ namespace AutoStockBroker.Controllers
                 double doubleValue = 0;
                 bool doubleParseResult = double.TryParse(value, out doubleValue);
 
-                stockPortfolio.Stocks.Add(new Stock {
+                stockPortfolio.Stocks.Add(new Stock
+                {
                     Name = trs.ElementAt(i).Descendants("td").ElementAt(1).Descendants("a").First().InnerText.Trim(),
                     DoubleValue = doubleValue,
                     StringValue = string.Format("{0:0,##}", value),
@@ -269,7 +283,7 @@ namespace AutoStockBroker.Controllers
             var compListData = compListDataEnumerable.First();
             var childNodes = compListData.ChildNodes;
             var descendants = childNodes.Descendants("a");
-            
+
             //string tobesearched = "href=\\";
             //string code = myString.Substring(myString.IndexOf(tobesearched) + tobesearched.Length);
             //var href = aTag;

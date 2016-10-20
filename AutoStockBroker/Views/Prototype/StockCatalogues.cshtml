@@ -1,4 +1,4 @@
-﻿@model AutoStockBroker.Models.Stocks.AvanzaPortfolio
+﻿@model AutoStockBroker.Models.Stocks.StockPortfolio
 
 @{
     ViewBag.Title = "Prototype page";
@@ -30,26 +30,26 @@
         </tr>
     </theader>
     <tbody>
-        @for (int i = 0; i < Model.LargeCapStocks.Count(); i++)
+        @for (int i = 0; i < Model.Stocks.Count(); i++)
         {
             <tr>
-                <td>@Model.LargeCapStocks[i].Name</td>
-                <td>@Model.LargeCapStocks[i].Industry</td>
-                <td>@Model.LargeCapStocks[i].Currency</td>
-                <td class="numbers">@Model.LargeCapStocks[i].StringValue</td>
-                <td class="numbers">@Model.LargeCapStocks[i].AmountOwned</td>
-                <td class="numbers">@Model.LargeCapStocks[i].ValueOwned.ToString("F")</td>
-                <td class="numbers border-right">@Model.LargeCapStocks[i].Weight.ToString("F")</td>
-                <td class="numbers">@Model.LargeCapStocks[i].MarketCap</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Dividend</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Volatility</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Beta</td>
-                <td class="numbers">@Model.LargeCapStocks[i].PriceEarnings</td>
-                <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
-                <td class="numbers">@Model.LargeCapStocks[i].Consensus</td>
+                <td>@Model.Stocks[i].Name</td>
+                <td>@Model.Stocks[i].Industry</td>
+                <td>@Model.Stocks[i].Currency</td>
+                <td class="numbers">@Model.Stocks[i].StringValue</td>
+                <td class="numbers">@Model.Stocks[i].AmountOwned</td>
+                <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
+                <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
+                <td class="numbers">@Model.Stocks[i].MarketCap</td>
+                <td class="numbers">@Model.Stocks[i].Dividend</td>
+                <td class="numbers">@Model.Stocks[i].Volatility</td>
+                <td class="numbers">@Model.Stocks[i].Beta</td>
+                <td class="numbers">@Model.Stocks[i].PriceEarnings</td>
+                <td class="numbers">@Model.Stocks[i].PriceSales</td>
+                <td class="numbers">@Model.Stocks[i].Consensus</td>
             </tr>
         }
-        @for (int i = 0; i < Model.MidCapStocks.Count(); i++)
+        @*@for (int i = 0; i < Model.MidCapStocks.Count(); i++)
         {
             <tr>
                 <td>@Model.MidCapStocks[i].Name</td>
@@ -86,6 +86,6 @@
                 <td class="numbers">@Model.LargeCapStocks[i].PriceSales</td>
                 <td class="numbers">@Model.LargeCapStocks[i].Consensus</td>
             </tr>
-        }
+        }*@
     </tbody>
 </table>
