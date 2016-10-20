@@ -181,6 +181,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Stocks\Consensus.cs" />
     <Compile Include="Models\Stocks\Stock.cs" />
     <Compile Include="Models\Stocks\AvanzaPortfolio.cs" />
     <Compile Include="Models\Stocks\StockPortfolio.cs" />
