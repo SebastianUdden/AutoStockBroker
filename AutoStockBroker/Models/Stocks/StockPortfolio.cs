@@ -12,5 +12,12 @@ namespace AutoStockBroker.Models
         public double TotalValue { get; set; }
         //public Stock[] Stocks { get; set; }
         public List<Stock> Stocks { get; set; }
+
+        public StockPortfolio(string stockCatalogueName)
+        {
+            Stocks = new List<Stock>();
+            StockCatalogueName = stockCatalogueName;
+            TotalValue = 0;
+        }
     }
 }
