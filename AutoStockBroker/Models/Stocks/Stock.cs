@@ -13,7 +13,7 @@ namespace AutoStockBroker.Models
         public string Currency { get; set; }
         public string MarketCap { get; set; }
         public string Dividend { get; set; }
-        public string Volatility { get; set; }
+        public double Volatility { get; set; }
         public string Beta { get; set; }
         public string PriceEarnings { get; set; }
         public string PriceSales { get; set; }

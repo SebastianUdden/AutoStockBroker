@@ -13,6 +13,7 @@ namespace AutoStockBroker.Models
         public double PortfolioVolatility { get; set; }
         //public Stock[] Stocks { get; set; }
         public List<Stock> Stocks { get; set; }
+        public double VolatilityPortfolioContribution { get; internal set; }
 
         public StockPortfolio(string stockCatalogueName)
         {
