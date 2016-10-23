@@ -11,6 +11,14 @@
     <h2>Information from @Model.StockCatalogueName</h2>
     <p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
     <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
+    <p>Potfolio beta: <b>X</b></p>
+    <p>Potfolio volatility: <b>@Model.PortfolioVolatility</b></p>
+    <p>Weighted P/E: <b>X</b></p>
+    <p>Weighted P/S: <b>X</b></p>
+    <p>Weighted dividend: <b>X</b></p>
+    <p>Weighted rek: <b>X</b></p>
+
+
     <table class="mainStockTable">
         <theader>
             <tr class="paper-bg">
@@ -41,7 +49,7 @@
                     <td>@Model.Stocks[i].Currency</td>
                     <td class="numbers">@Model.Stocks[i].StringValue</td>
                     <td class="numbers">@Model.Stocks[i].AmountOwned</td>
-                    <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
+                    <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("# ##0.00")</td>
                     <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
                     <td class="numbers">@Model.Stocks[i].MarketCap</td>
                     <td class="numbers">@Model.Stocks[i].Dividend</td>

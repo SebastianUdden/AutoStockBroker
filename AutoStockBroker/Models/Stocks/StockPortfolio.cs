@@ -10,6 +10,7 @@ namespace AutoStockBroker.Models
         public string StockCatalogueName { get; set; }
         public int TotalAmountOwned { get; set; }
         public double TotalValue { get; set; }
+        public double PortfolioVolatility { get; set; }
         //public Stock[] Stocks { get; set; }
         public List<Stock> Stocks { get; set; }
 

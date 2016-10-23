@@ -23,6 +23,7 @@ namespace AutoStockBroker.Models
         public string StringValue { get; set; }
         public int AmountOwned { get; set; }
         public double ValueOwned { get; set; }
+        public double PortfolioVolatility { get; set; }
         public double Weight { get; set; }
         public Stock()
         {
