@@ -202,6 +202,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Root\Angular\app.js" />
     <Content Include="Root\Images\Sida, Master plan.jpg" />
+    <None Include="Root\Json\tarzan.json" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -252,6 +253,7 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Root\Json\testJson.txt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1008,6 +1010,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Root\Angular\alert.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1049,6 +1052,7 @@
     <Content Include="Views\Home\FinancialSyntax.cshtml" />
     <Content Include="Views\Home\ProgrammingSyntax.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Prototype\StockCataloguesBackup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

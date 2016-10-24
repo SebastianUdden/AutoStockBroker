@@ -5,53 +5,157 @@
 }
 
 <div ng-controller="PrototypeController">
-    <p>{{10 + 4}}{{"hello" + name}}</p>
+    <p>{{10 + 4}}{{"hello" + name}}, made by {{myName}}</p>
     <h2>@ViewBag.Title.</h2>
     <p>@ViewBag.Message</p>
-    <h2>Information from @Model.StockCatalogueName</h2>
+    @*<h2>Information from @Model.StockCatalogueName</h2>
     <p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
-    <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>
-    <table class="mainStockTable">
+    <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>*@
+
+    <div class="alert alert-info">
+        <p>Sort Type: {{ sortType }}</p>
+        <p>Sort Reverse: {{ sortReverse }}</p>
+        <p>Search Query: {{ search }}</p>
+    </div>
+
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="Search for stock" ng-model="search.$">
+            </div>
+        </div>
+    </form>
+
+    <table class="mainStockTable" id="searchTextResults">
         <theader>
             <tr class="paper-bg">
-                <th><input type="text" class="smallInput" ng-model="name" placeholder="Name" /></th>
-                <th><input type="text" class="smallInput" ng-model="industry" placeholder="Industry" /></th>
-                <th><input type="number" style="width:4vw;" ng-model="currency" placeholder="Currency" /></th>
-                <th class="numbers smallInput"><input type="number" class="smallInput" ng-model="price" placeholder="Price" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="numberOfShares" placeholder="Nr of shares" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="value" placeholder="Value (SEK)" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="weight" placeholder="Portfolio Weight (%)" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="marketCap" placeholder="Market Cap" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="dividend" placeholder="Dividend (%)" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="volatility" placeholder="Volatility (%)" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="beta" placeholder="Beta" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="pe" placeholder="P/E" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="ps" placeholder="P/S" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="rek" placeholder="Rek" /></th>
+                <th><a href="#" ng-click="sortType = 'Name'; sortReverse = !sortReverse">Name</a>
+                    <span ng-show="sortType == 'Name' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Name' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th><a href="#" ng-click="sortType = 'Industry'; sortReverse = !sortReverse">Industry</a>
+                    <span ng-show="sortType == 'Industry' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Industry' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th><a style="float:left" href="#" ng-click="sortType = 'Currency'; sortReverse = !sortReverse">Currency</a>
+                    <span ng-show="sortType == 'Currency' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Currency' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput"><a href="#" ng-click="sortType = 'StringValue'; sortReverse = !sortReverse">Price</a>
+                    <span ng-show="sortType == 'StringValue' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'StringValue' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'AmountOwned'; sortReverse = !sortReverse">Nr of shares</a>
+                    <span ng-show="sortType == 'AmountOwned' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'AmountOwned' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'ValueOwned'; sortReverse = !sortReverse">Value (SEK)</a>
+                    <span ng-show="sortType == 'ValueOwned' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'ValueOwned' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'Weight'; sortReverse = !sortReverse">Market Cap</a>
+                    <span ng-show="sortType == 'Weight' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Weight' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'MarketCap'; sortReverse = !sortReverse">Portfolio Weight</a>
+                    <span ng-show="sortType == 'MarketCap' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'MarketCap' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'Dividend'; sortReverse = !sortReverse">Dividend (%)</a>
+                    <span ng-show="sortType == 'Dividend' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Dividend' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'Volatility'; sortReverse = !sortReverse">Volatility (%)</a>
+                    <span ng-show="sortType == 'Volatility' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Volatility' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'Beta'; sortReverse = !sortReverse">Beta</a>
+                    <span ng-show="sortType == 'Beta' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Beta' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'PriceEarnings'; sortReverse = !sortReverse">P/E</a>
+                    <span ng-show="sortType == 'PriceEarnings' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'PriceEarnings' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'PriceSales'; sortReverse = !sortReverse">P/S</a>
+                    <span ng-show="sortType == 'PriceSales' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'PriceSales' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+                <th class="numbers smallInput">
+                    <a href="#" ng-click="sortType = 'Consensus'; sortReverse = !sortReverse">Rek</a>
+                    <span ng-show="sortType == 'Consensus' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'Consensus' && sortReverse" class="fa fa-caret-up"></span>
+                </th>
+            </tr>
+            <tr class="paper-bg">
+                <th><input type="text" class="smallInput" ng-model="search.Name" placeholder="Name" /></th>
+                <th><input type="text" class="smallInput" ng-model="search.Industry" placeholder="Industry" /></th>
+                <th><input type="number" class="smallInput" ng-model="search.Currency" placeholder="Currency" /></th>
+                <th><input type="number" class="smallInput" ng-model="search.StringValue" placeholder="Price" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.AmountOwned" placeholder="Nr of shares" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.ValueOwned" placeholder="Value (SEK)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Weight" placeholder="Portfolio Weight (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.MarketCap" placeholder="Market Cap" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Dividend" placeholder="Dividend (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Volatility" placeholder="Volatility (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Beta" placeholder="Beta" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.PriceEarnings" placeholder="P/E" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.PriceSales" placeholder="P/S" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Consensus" placeholder="Rek" /></th>
             </tr>
         </theader>
-        @*ng-repeat="stock in @Model.Stocks.Count() | filter:query | orderBy: 'Name' "*@
-        @*<tr><td>{{stock.Name}}</td></tr>*@
         <tbody>
-            @for (int i = 0; i < Model.Stocks.Count(); i++)
-            {
-                <tr>
-                    <td>@Model.Stocks[i].Name</td>
-                    <td>@Model.Stocks[i].Industry</td>
-                    <td>@Model.Stocks[i].Currency</td>
-                    <td class="numbers">@Model.Stocks[i].StringValue</td>
-                    <td class="numbers">@Model.Stocks[i].AmountOwned</td>
-                    <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
-                    <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
-                    <td class="numbers">@Model.Stocks[i].MarketCap</td>
-                    <td class="numbers">@Model.Stocks[i].Dividend</td>
-                    <td class="numbers">@Model.Stocks[i].Volatility</td>
-                    <td class="numbers">@Model.Stocks[i].Beta</td>
-                    <td class="numbers">@Model.Stocks[i].PriceEarnings</td>
-                    <td class="numbers">@Model.Stocks[i].PriceSales</td>
-                    <td class="numbers">@Model.Stocks[i].Consensus</td>
-                </tr>
-            }
+            @*<tr ng-repeat="stock in Stocks | filter:search:strict | orderBy : orderByValue*@
+            <tr ng-repeat="stock in Stocks | orderBy:sortType:sortReverse | filter:search">
+                <td>{{stock.Name}}</td>
+                <td>{{stock.Industry}}</td>
+                <td>{{stock.Currency}}</td>
+                <td class="numbers">{{stock.StringValue}}</td>
+                <td class="numbers">{{stock.AmountOwned}}</td>
+                <td class="numbers">{{stock.ValueOwned}}</td>
+                <td class="numbers border-right">{{stock.Weight}}</td>
+                <td class="numbers">{{stock.MarketCap}}</td>
+                <td class="numbers">{{stock.Dividend}}</td>
+                <td class="numbers">{{stock.Volatility}}</td>
+                <td class="numbers">{{stock.Beta}}</td>
+                <td class="numbers">{{stock.PriceEarnings}}</td>
+                <td class="numbers">{{stock.PriceSales}}</td>
+                <td class="numbers">{{stock.Consensus}}</td>
+            </tr>
         </tbody>
+
+        @*<tbody>
+                @for (int i = 0; i < Model.Stocks.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model.Stocks[i].Name</td>
+                        <td>@Model.Stocks[i].Industry</td>
+                        <td>@Model.Stocks[i].Currency</td>
+                        <td class="numbers">@Model.Stocks[i].StringValue</td>
+                        <td class="numbers">@Model.Stocks[i].AmountOwned</td>
+                        <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
+                        <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
+                        <td class="numbers">@Model.Stocks[i].MarketCap</td>
+                        <td class="numbers">@Model.Stocks[i].Dividend</td>
+                        <td class="numbers">@Model.Stocks[i].Volatility</td>
+                        <td class="numbers">@Model.Stocks[i].Beta</td>
+                        <td class="numbers">@Model.Stocks[i].PriceEarnings</td>
+                        <td class="numbers">@Model.Stocks[i].PriceSales</td>
+                        <td class="numbers">@Model.Stocks[i].Consensus</td>
+                    </tr>
+                }
+            </tbody>*@
     </table>
+    <div ng-hide="Stocks.length">No items found</div>
+
 </div>

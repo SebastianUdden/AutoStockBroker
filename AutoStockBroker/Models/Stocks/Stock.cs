@@ -41,22 +41,22 @@ namespace AutoStockBroker.Models
             }
         }
     }
-    public enum Branch
-    {
-        Bank = 1,
-        Fastigheter = 3,
-        Investmentbolag = 2,
-        Produktion = 11,
-        Byggprodukter = 12,
-        Byggnation = 13,
-        HandelOchDistribution = 14,
-        TjänsterOchLeverans = 15,
-        Bemanning = 16,
-        BettingOchSpel = 23,
-        Konsument = 24,
-        KläderOchTextil = 25,
-        HotelRestaurangOchNöje = 26,
-        Media = 27,
-        Återförsäljare = 28,
-    }
+    //public enum Branch
+    //{
+    //    Bank = 1,
+    //    Fastigheter = 3,
+    //    Investmentbolag = 2,
+    //    Produktion = 11,
+    //    Byggprodukter = 12,
+    //    Byggnation = 13,
+    //    HandelOchDistribution = 14,
+    //    TjänsterOchLeverans = 15,
+    //    Bemanning = 16,
+    //    BettingOchSpel = 23,
+    //    Konsument = 24,
+    //    KläderOchTextil = 25,
+    //    HotelRestaurangOchNöje = 26,
+    //    Media = 27,
+    //    Återförsäljare = 28,
+    //}
 }

@@ -1,27 +1,28 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="white2-bg">
-    <h1>AutoStockBroker</h1>
-    <p class="lead">AutoStockBroker is a website/tool created to help Tim and Sebastian make predictions in the stock market, managing their portfolios and brokering deals through the web.</p>
-    <p><a href="About" class="btn white2MenuItem-bg btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Great links</h2>
-        <p>Here we gather links that are of interest when building the back-end REST-API, the web front page and all financial information of interest.</p>
-        <p><a class="btn btn-default lavendar-bg" href="GreatLinks">Go to great links &raquo;</a></p>
+<div ng-controller="HomeController">
+    <div class="white2-bg">
+        <h1>AutoStockBroker-{{name}}!</h1>
+        <p class="lead">AutoStockBroker is a website/tool created to help Tim and Sebastian make predictions in the stock market, managing their portfolios and brokering deals through the web.</p>
+        <p><a href="About" class="btn white2MenuItem-bg btn-lg">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Master plan</h2>
-        <p>This is where we do goalsetting, create milestones and weigh pros and cons in order to keep the project moving forward on the right track.</p>
-        <p><a class="btn btn-default lavendar-bg" href="MasterPlan">Go to master plan &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Prototype page</h2>
-        <p>This is the first iteration of the website. We will put up new versions of this page continually until the product reaches it's final completed form.</p>
-        <p><a class="btn btn-default lavendar-bg" href="~/Prototype/StockCatalogues">Go to prototype page &raquo;</a></p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Great links</h2>
+            <p>Here we gather links that are of interest when building the back-end REST-API, the web front page and all financial information of interest.</p>
+            <p><a class="btn btn-default lavendar-bg" href="GreatLinks">Go to great links &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Master plan</h2>
+            <p>This is where we do goalsetting, create milestones and weigh pros and cons in order to keep the project moving forward on the right track.</p>
+            <p><a class="btn btn-default lavendar-bg" href="MasterPlan">Go to master plan &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Prototype page</h2>
+            <p>This is the first iteration of the website. We will put up new versions of this page continually until the product reaches it's final completed form.</p>
+            <p><a class="btn btn-default lavendar-bg" href="~/Prototype/StockCatalogues">Go to prototype page &raquo;</a></p>
+        </div>
     </div>
 </div>
