@@ -18,7 +18,6 @@ namespace AutoStockBroker.Models
         public string PriceEarnings { get; set; }
         public string PriceSales { get; set; }
         public string Consensus { get; set; }
-        Branch privateObject;
         public double DoubleValue { get; set; }
         public string StringValue { get; set; }
         public int AmountOwned { get; set; }
@@ -28,35 +27,5 @@ namespace AutoStockBroker.Models
         {
             Name = "";
         }
-
-        public Branch EnumProperty
-        {
-            get
-            {
-                return privateObject;
-            }
-            set
-            {
-                privateObject = value;
-            }
-        }
     }
-    //public enum Branch
-    //{
-    //    Bank = 1,
-    //    Fastigheter = 3,
-    //    Investmentbolag = 2,
-    //    Produktion = 11,
-    //    Byggprodukter = 12,
-    //    Byggnation = 13,
-    //    HandelOchDistribution = 14,
-    //    TjänsterOchLeverans = 15,
-    //    Bemanning = 16,
-    //    BettingOchSpel = 23,
-    //    Konsument = 24,
-    //    KläderOchTextil = 25,
-    //    HotelRestaurangOchNöje = 26,
-    //    Media = 27,
-    //    Återförsäljare = 28,
-    //}
 }

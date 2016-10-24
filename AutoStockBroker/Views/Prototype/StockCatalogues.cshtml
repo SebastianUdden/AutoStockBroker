@@ -8,9 +8,6 @@
     <p>{{10 + 4}}{{"hello" + name}}, made by {{myName}}</p>
     <h2>@ViewBag.Title.</h2>
     <p>@ViewBag.Message</p>
-    @*<h2>Information from @Model.StockCatalogueName</h2>
-    <p>Total shares owned: <b>@Model.TotalAmountOwned</b></p>
-    <p>Total value accumulated: <b>@Model.TotalValue SEK</b></p>*@
 
     <div class="alert alert-info">
         <p>Sort Type: {{ sortType }}</p>
@@ -115,7 +112,6 @@
             </tr>
         </theader>
         <tbody>
-            @*<tr ng-repeat="stock in Stocks | filter:search:strict | orderBy : orderByValue*@
             <tr ng-repeat="stock in Stocks | orderBy:sortType:sortReverse | filter:search">
                 <td>{{stock.Name}}</td>
                 <td>{{stock.Industry}}</td>
@@ -133,28 +129,6 @@
                 <td class="numbers">{{stock.Consensus}}</td>
             </tr>
         </tbody>
-
-        @*<tbody>
-                @for (int i = 0; i < Model.Stocks.Count(); i++)
-                {
-                    <tr>
-                        <td>@Model.Stocks[i].Name</td>
-                        <td>@Model.Stocks[i].Industry</td>
-                        <td>@Model.Stocks[i].Currency</td>
-                        <td class="numbers">@Model.Stocks[i].StringValue</td>
-                        <td class="numbers">@Model.Stocks[i].AmountOwned</td>
-                        <td class="numbers">@Model.Stocks[i].ValueOwned.ToString("F")</td>
-                        <td class="numbers border-right">@Model.Stocks[i].Weight.ToString("F")</td>
-                        <td class="numbers">@Model.Stocks[i].MarketCap</td>
-                        <td class="numbers">@Model.Stocks[i].Dividend</td>
-                        <td class="numbers">@Model.Stocks[i].Volatility</td>
-                        <td class="numbers">@Model.Stocks[i].Beta</td>
-                        <td class="numbers">@Model.Stocks[i].PriceEarnings</td>
-                        <td class="numbers">@Model.Stocks[i].PriceSales</td>
-                        <td class="numbers">@Model.Stocks[i].Consensus</td>
-                    </tr>
-                }
-            </tbody>*@
     </table>
     <div ng-hide="Stocks.length">No items found</div>
 
