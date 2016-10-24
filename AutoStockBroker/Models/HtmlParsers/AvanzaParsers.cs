@@ -101,7 +101,11 @@ namespace AutoStockBroker.Models
                 stockPortfolio.Stocks[i].Dividend = dividend.Replace(",", ".");
 
                 string volatility = trs.ElementAt(i).Descendants("td").ElementAt(4).InnerText;
-                stockPortfolio.Stocks[i].Volatility = volatility.Replace(",", ".");
+                volatility = volatility.Replace(",", ".");
+                double volatilityDouble = 0;
+                bool doubleParseResult = double.TryParse(volatility, out volatilityDouble);
+                stockPortfolio.Stocks[i].Volatility = volatilityDouble;
+                stockPortfolio.Stocks[i].PortfolioVolatility = volatilityDouble * stockPortfolio.Stocks[i].Weight / 100;
 
                 string beta = trs.ElementAt(i).Descendants("td").ElementAt(5).InnerText;
                 stockPortfolio.Stocks[i].Beta = beta.Replace(",", ".");
