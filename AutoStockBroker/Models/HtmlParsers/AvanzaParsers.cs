@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using AutoStockBroker.Models;
+using System.Globalization;
 
 namespace AutoStockBroker.Models
 {
@@ -43,14 +44,16 @@ namespace AutoStockBroker.Models
                 }
 
                 value = value.Replace(",", ".");
+                string stringValue = string.Format("{0:0,##}", value);
                 double doubleValue = 0;
-                bool doubleParseResult = double.TryParse(value, out doubleValue);
+                bool doubleParseResult = double.TryParse(stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out doubleValue);
 
                 stockPortfolio.Stocks.Add(new Stock
                 {
                     Name = trs.ElementAt(i).Descendants("td").ElementAt(1).Descendants("a").First().InnerText.Trim(),
-                    DoubleValue = doubleValue,
-                    StringValue = string.Format("{0:0,##}", value),
+                    Currency = "SEK",
+                    ValueDouble = doubleValue,
+                    ValueString = stringValue,
                     AmountOwned = 10
                     //StringValue = Regex.Match(tempValue, @"\d+(\,\d{1,2})?").Value
                 });
@@ -81,42 +84,56 @@ namespace AutoStockBroker.Models
 
             for (int i = 0; i < trs.Count(); i++)
             {
-                string value = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
-                //var tempValue = value.Replace(',', '.');
-                //if (value.Length > 6)
-                //{
-                //    value = value.Remove(value.Length - 8, 2);
-                //}
-
-                //double doubleValue = 0;
-                //bool doubleParseResult = double.TryParse(value, out doubleValue);
-
                 string marketCap = CharHandling.RemoveSpecialCharacters(trs.ElementAt(i).Descendants("td").ElementAt(2).InnerText);
-                string marketCapCleansed = marketCap.Remove(marketCap.Length - 4, 4);
-                int marketCapInt = Convert.ToInt32(marketCapCleansed);
-                string marketCapFormatted = marketCapInt.ToString("# ##0");
-                stockPortfolio.Stocks[i].MarketCap = marketCapFormatted;
+                string marketCapCleansed = "N/A";
+                if (marketCap.Length - 4 > 3)
+                {
+                    marketCapCleansed = marketCap.Remove(marketCap.Length - 4, 4);
+                }
+                int marketCapInt = 0;
+                if (int.TryParse(marketCapCleansed, out marketCapInt))
+                {
+                    marketCapCleansed = marketCapInt.ToString("# ##0");
+                }
+                stockPortfolio.Stocks[i].MarketCap = marketCapCleansed;
+                stockPortfolio.Stocks[i].MarketCapInt = marketCapInt;
 
                 string dividend = trs.ElementAt(i).Descendants("td").ElementAt(3).InnerText;
                 stockPortfolio.Stocks[i].Dividend = dividend.Replace(",", ".");
+                double dividendDouble = 0;
+                bool doubleParseDividendResult = double.TryParse(dividend, out dividendDouble);
+                stockPortfolio.Stocks[i].DividendDouble = dividendDouble;
 
                 string volatility = trs.ElementAt(i).Descendants("td").ElementAt(4).InnerText;
                 volatility = volatility.Replace(",", ".");
                 double volatilityDouble = 0;
-                bool doubleParseResult = double.TryParse(volatility, out volatilityDouble);
+                bool doubleParseVolatilityResult = double.TryParse(volatility, NumberStyles.Number, CultureInfo.InvariantCulture, out volatilityDouble);
                 stockPortfolio.Stocks[i].Volatility = volatilityDouble;
                 stockPortfolio.Stocks[i].PortfolioVolatility = volatilityDouble * stockPortfolio.Stocks[i].Weight / 100;
 
                 string beta = trs.ElementAt(i).Descendants("td").ElementAt(5).InnerText;
                 stockPortfolio.Stocks[i].Beta = beta.Replace(",", ".");
+                double betaDouble = 0;
+                bool doubleParseBetaResult = double.TryParse(beta, out betaDouble);
+                stockPortfolio.Stocks[i].BetaDouble = betaDouble;
 
                 string priceEarnings = trs.ElementAt(i).Descendants("td").ElementAt(6).InnerText;
                 stockPortfolio.Stocks[i].PriceEarnings = priceEarnings.Replace(",", ".");
+                double priceEarningsDouble = 0;
+                bool doubleParsePriceEarningsResult = double.TryParse(priceEarnings, out priceEarningsDouble);
+                stockPortfolio.Stocks[i].PriceEarningsDouble = priceEarningsDouble;
 
                 string priceSales = trs.ElementAt(i).Descendants("td").ElementAt(7).InnerText;
                 stockPortfolio.Stocks[i].PriceSales = priceSales.Replace(",", ".");
-                
-                stockPortfolio.Stocks[i].Consensus = trs.ElementAt(i).Descendants("td").ElementAt(8).InnerText;
+                double priceSalesDouble = 0;
+                bool doubleParsePriceSalesResult = double.TryParse(priceSales, out priceSalesDouble);
+                stockPortfolio.Stocks[i].PriceSalesDouble = priceSalesDouble;
+
+                string consensus = trs.ElementAt(i).Descendants("td").ElementAt(8).InnerText;
+                stockPortfolio.Stocks[i].Consensus = consensus;
+                double consensusDouble = 0;
+                bool doubleParseConsensusResult = double.TryParse(consensus.Substring(0, consensus.Length - 1), out consensusDouble);
+                stockPortfolio.Stocks[i].ConsensusDouble = consensusDouble;
 
                 //string aTag = trs.ElementAt(i).OuterHtml.ToString();
                 //int pFrom = aTag.IndexOf("href=\"/") + "href=\"/".Length;

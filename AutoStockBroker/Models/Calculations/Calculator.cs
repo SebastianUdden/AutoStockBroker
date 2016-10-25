@@ -11,7 +11,7 @@ namespace AutoStockBroker.Models
         {
             for (int i = 0; i < stockPortfolio.Stocks.Count; i++)
             {
-                stockPortfolio.Stocks[i].ValueOwned = stockPortfolio.Stocks[i].DoubleValue * stockPortfolio.Stocks[i].AmountOwned;
+                stockPortfolio.Stocks[i].ValueOwned = stockPortfolio.Stocks[i].ValueDouble * stockPortfolio.Stocks[i].AmountOwned;
                 stockPortfolio.TotalValue += stockPortfolio.Stocks[i].ValueOwned;
                 stockPortfolio.TotalAmountOwned += stockPortfolio.Stocks[i].AmountOwned;
                 stockPortfolio.PortfolioVolatility += stockPortfolio.Stocks[i].PortfolioVolatility;
