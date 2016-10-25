@@ -42,64 +42,6 @@ namespace AutoStockBroker.Controllers
             StockPortfolio avanzaSmallCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaSmallCapStockPortfolio);
             StockPortfolio viewAvanzaSmallCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaSmallCapStockPortfolioOverview);
 
-            //AvanzaPortfolio avanzaAllCapStockPortfolio = new AvanzaPortfolio()
-            //{
-            //    StockCatalogueName = "AvanzaAllCapStockPortfolio",
-            //    LargeCapStocks = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
-            //    //LargeCapStocksOverview = viewAvanzaLargeCapStockPortfolioOverview.Stocks,
-            //    MidCapStocks = viewAvanzaMidCapStockPortfolio.Stocks,
-            //    SmallCapStocks = viewAvanzaSmallCapStockPortfolio.Stocks,
-            //};
-
-            #region NotUsed
-            //stockPortfolio.Stocks = new []{
-            //    new Stock
-            //    {
-            //        Name = "2E Group",
-            //        AmountOwned = 5
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "A City Media",
-            //        AmountOwned = 1
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "Ap Moller Maersk",
-            //        AmountOwned = 3
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "A1m Pharma",
-            //        AmountOwned = 5
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "Aalborg Bolspilklub",
-            //        AmountOwned = 10
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "Aarhus Elite",
-            //        AmountOwned = 15
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "Aarhuskarlshamn",
-            //        AmountOwned = 7
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "Aasen Sparebank",
-            //        AmountOwned = 30
-            //    },
-            //    new Stock
-            //    {
-            //        Name = "ABB",
-            //        AmountOwned = 36
-            //    }
-            //};
-            #endregion
             StockPortfolio allAvanzaStocks = new StockPortfolio("Avanza Stocks");
             allAvanzaStocks.Stocks = AddAllStocks(viewAvanzaLargeCapStockPortfolioOverview.Stocks, viewAvanzaMidCapStockPortfolioOverview.Stocks, viewAvanzaSmallCapStockPortfolioOverview.Stocks);
             allAvanzaStocks.Stocks = allAvanzaStocks.Stocks.OrderBy(x => x.Name).ToList();
@@ -110,6 +52,12 @@ namespace AutoStockBroker.Controllers
             #endregion
             ViewBag.Message = "These are the stocks currently added.";
             return View(allAvanzaStocksView);
+        }
+
+        public ActionResult MyStockPortfolio()
+        {
+            //JsonCreator.SaveToRoot();
+            return View();
         }
 
         public static List<Stock> AddAllStocks(List<Stock> smallCap, List<Stock> midCap, List<Stock> largeCap)

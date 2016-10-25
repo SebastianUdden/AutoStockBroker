@@ -53,8 +53,7 @@ namespace AutoStockBroker.Models
                     Name = trs.ElementAt(i).Descendants("td").ElementAt(1).Descendants("a").First().InnerText.Trim(),
                     Currency = "SEK",
                     ValueDouble = doubleValue,
-                    ValueString = stringValue,
-                    AmountOwned = 10
+                    ValueString = stringValue
                     //StringValue = Regex.Match(tempValue, @"\d+(\,\d{1,2})?").Value
                 });
                 //string aTag = trs.ElementAt(i).OuterHtml.ToString();

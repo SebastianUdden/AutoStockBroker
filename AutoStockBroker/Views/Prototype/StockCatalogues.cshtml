@@ -8,10 +8,166 @@
     <h2>@ViewBag.Title.</h2>
     <p>@ViewBag.Message</p>
 
+    <div id="CheckedList">
+        <h3>My Stock Portfolio:</h3>
+        <i>Currently invested in {{getMyStocksCount()}} out of {{getTotalStocksCount()}} companies</i>
+        <button class="btn-sm btn-info" ng-click="saveToPc($scope.myStocks, 'firstTest.json')">Save to File</button>
+
+        <table class="mainStockTable" id="searchTextResults">
+            <theader>
+                <tr class="paper-bg">
+                    <th></th>
+                    <!-- #region Name -->
+                    <th>
+                        <a href="#" ng-click="sortType = 'Name'; sortReverse = !sortReverse">Name</a>
+                        <span ng-show="sortType == 'Name' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Name' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Industry -->
+                    <th>
+                        <a href="#" ng-click="sortType = 'Industry'; sortReverse = !sortReverse">Industry</a>
+                        <span ng-show="sortType == 'Industry' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Industry' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Currency -->
+                    <th>
+                        <a style="float:left" href="#" ng-click="sortType = 'Currency'; sortReverse = !sortReverse">Currency</a>
+                        <span ng-show="sortType == 'Currency' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Currency' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    @*<th class="numbers smallInput">
+                            <a href="#" ng-click="sortType = 'ValueString'; sortReverse = !sortReverse">Price</a>
+                            <span ng-show="sortType == 'ValueString' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'ValueString' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>*@
+                    <!-- #region PriceNumber -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'ValueDouble'; sortReverse = !sortReverse">Price</a>
+                        <span ng-show="sortType == 'ValueDouble' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'ValueDouble' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Nr of Shares -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'AmountOwned'; sortReverse = !sortReverse">Nr of shares</a>
+                        <span ng-show="sortType == 'AmountOwned' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'AmountOwned' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Value -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'ValueOwned'; sortReverse = !sortReverse">Value (SEK)</a>
+                        <span ng-show="sortType == 'ValueOwned' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'ValueOwned' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Portfolio Weight -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'Weight'; sortReverse = !sortReverse">Portfolio Weight</a>
+                        <span ng-show="sortType == 'Weight' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Weight' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    @*<th class="numbers smallInput">
+                            <a href="#" ng-click="sortType = 'MarketCap'; sortReverse = !sortReverse">Market Cap</a>
+                            <span ng-show="sortType == 'MarketCap' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'MarketCap' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>*@
+                    <!-- #region Market Cap -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'MarketCapInt'; sortReverse = !sortReverse">Market Cap</a>
+                        <span ng-show="sortType == 'MarketCapInt' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'MarketCapInt' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    @*<th class="numbers smallInput">
+                            <a href="#" ng-click="sortType = 'Dividend'; sortReverse = !sortReverse">Dividend (%)</a>
+                            <span ng-show="sortType == 'Dividend' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'Dividend' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>*@
+                    <!-- #region Dividend (%) -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'DividendDouble'; sortReverse = !sortReverse">Dividend(%)</a>
+                        <span ng-show="sortType == 'DividendDouble' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'DividendDouble' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Volatility (%) -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'Volatility'; sortReverse = !sortReverse">Volatility (%)</a>
+                        <span ng-show="sortType == 'Volatility' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Volatility' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    @*<th class="numbers smallInput">
+                            <a href="#" ng-click="sortType = 'Beta'; sortReverse = !sortReverse">Beta</a>
+                            <span ng-show="sortType == 'Beta' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'Beta' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>*@
+                    <!-- #region Beta -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'BetaDouble'; sortReverse = !sortReverse">Beta</a>
+                        <span ng-show="sortType == 'BetaDouble' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'BetaDouble' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region P/E -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'PriceEarningsDouble'; sortReverse = !sortReverse">P/E</a>
+                        <span ng-show="sortType == 'PriceEarningsDouble' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'PriceEarningsDouble' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region P/S -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'PriceSalesDouble'; sortReverse = !sortReverse">P/S</a>
+                        <span ng-show="sortType == 'PriceSalesDouble' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'PriceSalesDouble' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                    <!-- #region Rek -->
+                    <th class="numbers smallInput">
+                        <a href="#" ng-click="sortType = 'ConsensusDouble'; sortReverse = !sortReverse">Rek</a>
+                        <span ng-show="sortType == 'ConsensusDouble' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'ConsensusDouble' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>
+                    <!-- #endregion -->
+                </tr>
+            </theader>
+            <tbody>
+                <tr ng-repeat="stock in myStocks | orderBy:sortType:sortReverse | filter:search">
+                    <td><button class="btn-sm btn-success" ng-click="addStock($index)">Add</button><button class="btn-sm btn-danger" ng-click="removeStock($index)">Remove</button></td>
+                    <td>{{stock.Name}}</td>
+                    <td>{{stock.Industry}}</td>
+                    <td>{{stock.Currency}}</td>
+                    @*<td class="numbers">{{stock.ValueString}}</td>*@
+                    <td class="numbers">{{stock.ValueDouble | number:2 }}</td>
+                    <td class="numbers">{{stock.AmountOwned}}</td>
+                    <td class="numbers">{{stock.ValueOwned | number:2 }}</td>
+                    <td class="numbers border-right">{{stock.Weight| number:2 }}</td>
+                    @*<td class="numbers">{{stock.MarketCapInt | number:2 }}</td>*@
+                    <td class="numbers">{{stock.MarketCap}}</td>
+                    @*<td class="numbers">{{stock.DividendDouble | number:2 }}</td>*@
+                    <td class="numbers">{{stock.Dividend | number:2 }}</td>
+                    <td class="numbers">{{stock.Volatility | number:2 }}</td>
+                    @*<td class="numbers">{{stock.BetaDouble}}</td>*@
+                    <td class="numbers">{{stock.Beta | number:2 }}</td>
+                    <td class="numbers">{{stock.PriceEarnings | number:2 }}</td>
+                    <td class="numbers">{{stock.PriceSales | number:2 }}</td>
+                    <td class="numbers">{{stock.Consensus}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="alert alert-info">
-        <p>Sort Type: {{ sortType }}</p>
+        <p>Add stocks to your portfolio, later functionality will allow you to save data for further analysis.</p>
+        @*<p>Sort Type: {{ sortType }}</p>
         <p>Sort Reverse: {{ sortReverse }}</p>
-        <p>Search Query: {{ search }}</p>
+        <p>Search Query: {{ search }}</p>*@
     </div>
 
     <form>
@@ -26,6 +182,7 @@
     <table class="mainStockTable" id="searchTextResults">
         <theader>
             <tr class="paper-bg">
+                <th></th>
                 <!-- #region Name -->
                 <th>
                     <a href="#" ng-click="sortType = 'Name'; sortReverse = !sortReverse">Name</a>
@@ -48,10 +205,10 @@
                 </th>
                 <!-- #endregion -->
                 @*<th class="numbers smallInput">
-                    <a href="#" ng-click="sortType = 'ValueString'; sortReverse = !sortReverse">Price</a>
-                    <span ng-show="sortType == 'ValueString' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'ValueString' && sortReverse" class="fa fa-caret-up"></span>
-                </th>*@
+                        <a href="#" ng-click="sortType = 'ValueString'; sortReverse = !sortReverse">Price</a>
+                        <span ng-show="sortType == 'ValueString' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'ValueString' && sortReverse" class="fa fa-caret-up"></span>
+                    </th>*@
                 <!-- #region PriceNumber -->
                 <th class="numbers smallInput">
                     <a href="#" ng-click="sortType = 'ValueDouble'; sortReverse = !sortReverse">Price</a>
@@ -60,25 +217,25 @@
                 </th>
                 <!-- #endregion -->
                 <!-- #region Nr of Shares -->
-                <th class="numbers smallInput">
+                @*<th class="numbers smallInput">
                     <a href="#" ng-click="sortType = 'AmountOwned'; sortReverse = !sortReverse">Nr of shares</a>
                     <span ng-show="sortType == 'AmountOwned' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'AmountOwned' && sortReverse" class="fa fa-caret-up"></span>
-                </th>
+                </th>*@
                 <!-- #endregion -->
                 <!-- #region Value -->
-                <th class="numbers smallInput">
+                @*<th class="numbers smallInput">
                     <a href="#" ng-click="sortType = 'ValueOwned'; sortReverse = !sortReverse">Value (SEK)</a>
                     <span ng-show="sortType == 'ValueOwned' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'ValueOwned' && sortReverse" class="fa fa-caret-up"></span>
-                </th>
+                </th>*@
                 <!-- #endregion -->
                 <!-- #region Portfolio Weight -->
-                <th class="numbers smallInput">
+                @*<th class="numbers smallInput">
                     <a href="#" ng-click="sortType = 'Weight'; sortReverse = !sortReverse">Portfolio Weight</a>
                     <span ng-show="sortType == 'Weight' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'Weight' && sortReverse" class="fa fa-caret-up"></span>
-                </th>
+                </th>*@
                 <!-- #endregion -->
                 @*<th class="numbers smallInput">
                         <a href="#" ng-click="sortType = 'MarketCap'; sortReverse = !sortReverse">Market Cap</a>
@@ -87,7 +244,7 @@
                     </th>*@
                 <!-- #region Market Cap -->
                 <th class="numbers smallInput">
-                    <a href="#" ng-click="sortType = 'MarketCapInt'; sortReverse = !sortReverse">Market Cap</a>
+                    <a href="#" ng-click="sortType = 'MarketCapInt'; sortReverse = !sortReverse">Market Cap (MSEK)</a>
                     <span ng-show="sortType == 'MarketCapInt' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'MarketCapInt' && sortReverse" class="fa fa-caret-up"></span>
                 </th>
@@ -99,7 +256,7 @@
                     </th>*@
                 <!-- #region Dividend (%) -->
                 <th class="numbers smallInput">
-                    <a href="#" ng-click="sortType = 'DividendDouble'; sortReverse = !sortReverse">Dividend (%)</a>
+                    <a href="#" ng-click="sortType = 'DividendDouble'; sortReverse = !sortReverse">Dividend(%)</a>
                     <span ng-show="sortType == 'DividendDouble' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'DividendDouble' && sortReverse" class="fa fa-caret-up"></span>
                 </th>
@@ -146,14 +303,15 @@
                 <!-- #endregion -->
             </tr>
             <tr class="paper-bg">
+                <th></th>
                 <th><input type="text" class="smallInput" ng-model="search.Name" placeholder="Name" /></th>
                 <th><input type="text" class="smallInput" ng-model="search.Industry" placeholder="Industry" /></th>
                 <th><input type="text" class="smallInput" ng-model="search.Currency" placeholder="Currency" /></th>
                 @*<th><input type="number" class="smallInput" ng-model="search.ValueString" placeholder="Price" /></th>*@
                 <th><input type="number" class="smallInput" ng-model="search.ValueDouble" placeholder="Price" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="search.AmountOwned" placeholder="Nr of shares" /></th>
+                @*<th class="numbers"><input type="number" class="smallInput" ng-model="search.AmountOwned" placeholder="Nr of shares" /></th>
                 <th class="numbers"><input type="number" class="smallInput" ng-model="search.ValueOwned" placeholder="Value (SEK)" /></th>
-                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Weight" placeholder="Portfolio Weight (%)" /></th>
+                <th class="numbers"><input type="number" class="smallInput" ng-model="search.Weight" placeholder="Portfolio Weight (%)" /></th>*@
                 @*<th class="numbers"><input type="number" class="smallInput" ng-model="search.MarketCap" placeholder="Market Cap" /></th>*@
                 <th class="numbers"><input type="number" class="smallInput" ng-model="search.MarketCapInt" placeholder="Market Cap" /></th>
                 @*<th class="numbers"><input type="number" class="smallInput" ng-model="search.Dividend" placeholder="Dividend (%)" /></th>*@
@@ -168,27 +326,30 @@
         </theader>
         <tbody>
             <tr ng-repeat="stock in Stocks | orderBy:sortType:sortReverse | filter:search">
+                <td><button class="btn-sm btn-success" ng-click="addStock($index)">Add</button></td>
                 <td>{{stock.Name}}</td>
                 <td>{{stock.Industry}}</td>
                 <td>{{stock.Currency}}</td>
                 @*<td class="numbers">{{stock.ValueString}}</td>*@
-                <td class="numbers">{{stock.ValueDouble}}</td>
-                <td class="numbers">{{stock.AmountOwned}}</td>
-                <td class="numbers">{{stock.ValueOwned}}</td>
-                <td class="numbers border-right">{{stock.Weight}}</td>
-                @*<td class="numbers">{{stock.MarketCapInt}}</td>*@
+                <td class="numbers">{{stock.ValueDouble | number:2 }}</td>
+                @*<td class="numbers">{{stock.AmountOwned}}</td>
+                <td class="numbers">{{stock.ValueOwned | number:2 }}</td>*@
+                @*<td class="numbers border-right">{{stock.Weight| number:2 }}</td>*@
+                @*<td class="numbers">{{stock.MarketCapInt | number:2 }}</td>*@
                 <td class="numbers">{{stock.MarketCap}}</td>
-                @*<td class="numbers">{{stock.DividendDouble}}</td>*@
-                <td class="numbers">{{stock.Dividend}}</td>
-                <td class="numbers">{{stock.Volatility}}</td>
+                @*<td class="numbers">{{stock.DividendDouble | number:2 }}</td>*@
+                <td class="numbers">{{stock.Dividend | number:2 }}</td>
+                <td class="numbers">{{stock.Volatility | number:2 }}</td>
                 @*<td class="numbers">{{stock.BetaDouble}}</td>*@
-                <td class="numbers">{{stock.Beta}}</td>
-                <td class="numbers">{{stock.PriceEarnings}}</td>
-                <td class="numbers">{{stock.PriceSales}}</td>
+                <td class="numbers">{{stock.Beta | number:2 }}</td>
+                <td class="numbers">{{stock.PriceEarnings | number:2 }}</td>
+                <td class="numbers">{{stock.PriceSales | number:2 }}</td>
                 <td class="numbers">{{stock.Consensus}}</td>
             </tr>
         </tbody>
     </table>
     <div ng-hide="Stocks.length">No items found</div>
-
 </div>
+<script>
+
+</script>
