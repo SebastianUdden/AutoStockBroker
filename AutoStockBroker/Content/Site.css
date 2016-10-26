@@ -214,3 +214,7 @@ tr:hover {
 .largeInput {
     width:15em !important;
 }
+
+.width-12vh {
+    width:12vh !important;
+}
