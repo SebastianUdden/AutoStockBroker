@@ -34,15 +34,14 @@ app.controller('PrototypeController', function ($scope, $http) {
              //  Do some error handling here
          });
 
+    $scope.GreaterThan = true;
     $scope.sortType = 'StringValue'; // set the default sort type
     $scope.sortReverse = false;  // set the default sort order
     $scope.search = '';     // set the default search/filter term
 
-    //$scope.uploadedFile = function (element) {
-    //    $scope.$apply(function ($scope) {
-    //        $scope.myStocks = element.files;
-    //    });
-    //};
+    $scope.ToggleGreaterThan = function () {
+        $scope.GreaterThan = !$scope.GreaterThan;
+    };
 
     $scope.addFile = function () {
         var input, file, fr;
@@ -113,27 +112,37 @@ app.controller('PrototypeController', function ($scope, $http) {
                     }
                 }
             }
-        }
-
-        $scope.myStocks.TotalValue = 0;
+        };
+        $scope.CalculateAmountValueAndWeight();
+    };
+    $scope.removeStock = function (stockName) {
         for (var i = 0; i < $scope.myStocks.length; i++) {
-            $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
-            $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
+            if ($scope.myStocks[i].Name === stockName) {
+                if ($scope.myStocks[i].AmountOwned > 1) {
+                    $scope.myStocks[i].AmountOwned--;
+                }
+                else {
+                    $scope.myStocks[i].AmountOwned--;
+                    $scope.myStocks.splice(i, 1);
+                }
+            }
         }
-        for (var i = 0; i < $scope.myStocks.length; i++) {
-            $scope.myStocks[i].Weight = $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
-        }
+        $scope.CalculateAmountValueAndWeight();
     };
 
-    $scope.removeStock = function (index) {
-        if ($scope.myStocks[index].AmountOwned > 1) {
-            $scope.myStocks[index].AmountOwned--;
-        }
-        else {
-            $scope.myStocks[index].AmountOwned--;
+    $scope.addOneMoreStock = function (index) {
+        $scope.myStocks[index].AmountOwned++;
+        $scope.CalculateAmountValueAndWeight();
+    };
+    $scope.removeOneMoreStock = function (index) {
+        $scope.myStocks[index].AmountOwned--;
+        if ($scope.myStocks[index].AmountOwned === 0) {
             $scope.myStocks.splice(index, 1);
         }
+        $scope.CalculateAmountValueAndWeight();
+    };
 
+    $scope.CalculateAmountValueAndWeight = function () {
         $scope.myStocks.TotalValue = 0;
         for (var i = 0; i < $scope.myStocks.length; i++) {
             $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
@@ -154,8 +163,28 @@ app.controller('PrototypeController', function ($scope, $http) {
         return $scope.myStocks.length;
     };
 
+    $scope.f = {};
+    $scope.filter_by = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.f['__' + field];
+            return;
+        }
+        $scope.f['__' + field] = true;
+        if ($scope.GreaterThan) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+
+
     $scope.$watch('myStocks', function (newValue, oldValue) {
-        
+
+    });
+
+    $scope.$watch('GreaterThan', function (newValue, oldValue) {
     });
 
     $scope.$watch('search.ValueDouble', function (newValue, oldValue) {
@@ -213,4 +242,5 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.search.ConsensusDouble = "";
     });
 });
+
 
