@@ -12,6 +12,7 @@ app.controller('HomeController', function ($scope, $http) {
     });
 });
 app.controller('PrototypeController', function ($scope, $http) {
+    $scope.fileSaved = false;
     $scope.name = 'PrototypeWorld';
 
     $http.get('/Root/Json/tarzan.json')
@@ -37,54 +38,55 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.sortReverse = false;  // set the default sort order
     $scope.search = '';     // set the default search/filter term
 
-    $scope.saveToPc = function (data, filename) {
+    //$scope.uploadedFile = function (element) {
+    //    $scope.$apply(function ($scope) {
+    //        $scope.myStocks = element.files;
+    //    });
+    //};
 
-        alert("Download not working yet!")
+    $scope.addFile = function () {
+        var input, file, fr;
 
-        if (!data) {
-            console.error('No data');
+        if (typeof window.FileReader !== 'function') {
+            alert("The file API isn't supported on this browser yet.");
             return;
         }
 
-        if (!filename) {
-            filename = 'download.json';
+        input = document.getElementById('fileinput');
+        if (!input) {
+            alert("Um, couldn't find the fileinput element.");
+        }
+        else if (!input.files) {
+            alert("This browser doesn't seem to support the `files` property of file inputs.");
+        }
+        else if (!input.files[0]) {
+            alert("Please select a file before clicking 'Load'");
+        }
+        else {
+            file = input.files[0];
+            fr = new FileReader();
+            fr.onload = receivedText;
+            fr.readAsText(file);
         }
 
-        if (typeof data === 'object') {
-            data = JSON.stringify(data, undefined, 2);
+        function receivedText(e) {
+            lines = e.target.result;
+            $scope.myStocks = JSON.parse(lines);
         }
+    }
 
-        var blob = new Blob([data], { type: 'text/json' });
+    $scope.saveToPc = function (data, filename) {
 
+        var theData = $scope.myStocks;
+        var theJSON = JSON.stringify(theData);
+        var uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
 
-        //var data = { a: 1, b: 2, c: 3 };
-        //var json = JSON.stringify(data);
-        //var blob = new Blob([json], { type: "application/json" });
-        var url = URL.createObjectURL(blob);
-
-        var a = document.createElement('a');
-        a.download = "backup.json";
-        a.href = url;
-        a.textContent = "Download backup.json";
+        var a = document.getElementById('saveToFile');
+        a.href = uri;
+        $scope.fileSaved = true;
     };
 
-    // Item List Arrays
-    //$scope.items = [];
     $scope.myStocks = [];
-
-    // Add a Item to the list
-    //$scope.addItem = function () {
-
-    //    $scope.items.push({
-    //        amount: $scope.itemAmount,
-    //        name: $scope.itemName
-    //    });
-
-    //    // Clear input fields after push
-    //    $scope.itemAmount = "";
-    //    $scope.itemName = "";
-
-    //};
 
     $scope.addStock = function (index) {
         if ($scope.myStocks.length === 0) {
@@ -97,11 +99,10 @@ app.controller('PrototypeController', function ($scope, $http) {
             for (var i = 0; i < $scope.myStocks.length; i++) {
                 if ($scope.myStocks[i].Name === $scope.Stocks[index].Name) {
                     stockExists = true;
+                    $scope.myStocks[i].AmountOwned++;
                 }
-                indexNumber = i;
             }
             if (stockExists) {
-                $scope.myStocks[indexNumber].AmountOwned++;
             }
             else {
                 $scope.myStocks.push($scope.Stocks[index]);
@@ -120,7 +121,7 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
         }
         for (var i = 0; i < $scope.myStocks.length; i++) {
-            $scope.myStocks[i].Weight =  $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
+            $scope.myStocks[i].Weight = $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
         }
     };
 
@@ -129,7 +130,17 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.myStocks[index].AmountOwned--;
         }
         else {
+            $scope.myStocks[index].AmountOwned--;
             $scope.myStocks.splice(index, 1);
+        }
+
+        $scope.myStocks.TotalValue = 0;
+        for (var i = 0; i < $scope.myStocks.length; i++) {
+            $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
+            $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
+        }
+        for (var i = 0; i < $scope.myStocks.length; i++) {
+            $scope.myStocks[i].Weight = $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
         }
     };
 
@@ -143,7 +154,9 @@ app.controller('PrototypeController', function ($scope, $http) {
         return $scope.myStocks.length;
     };
 
-
+    $scope.$watch('myStocks', function (newValue, oldValue) {
+        
+    });
 
     $scope.$watch('search.ValueDouble', function (newValue, oldValue) {
         if (newValue === null)

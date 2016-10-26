@@ -11,8 +11,18 @@
     <div id="CheckedList">
         <h3>My Stock Portfolio:</h3>
         <i>Currently invested in {{getMyStocksCount()}} out of {{getTotalStocksCount()}} companies</i>
-        <button class="btn-sm btn-info" ng-click="saveToPc($scope.myStocks, 'firstTest.json')">Save to File</button>
-
+        <button class="btn-sm btn-info" ng-show="!fileSaved" ng-click="saveToPc($scope.myStocks, 'firstTest.json')">Save to File</button>
+        <a id="saveToFile" ng-show="fileSaved" class="text-info">Right-click and choose 'save as...'</a>
+        <br />
+        
+        <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+            <fieldset>
+                <h2>Json File</h2>
+                <input class="panel-info" type='file' id='fileinput'>
+                <input class="btn-sm btn-info" type="button" id="btnLoad" value="DoubleClick to Load" ng-click="addFile();">
+            </fieldset>
+        </form>
+        <br />
         <table class="mainStockTable" id="searchTextResults">
             <theader>
                 <tr class="paper-bg">
@@ -164,7 +174,7 @@
     </div>
 
     <div class="alert alert-info">
-        <p>Add stocks to your portfolio, later functionality will allow you to save data for further analysis.</p>
+        <p>Add stocks to your portfolio, save it as a json and upload it when you want to continue later.</p>
         @*<p>Sort Type: {{ sortType }}</p>
         <p>Sort Reverse: {{ sortReverse }}</p>
         <p>Search Query: {{ search }}</p>*@
