@@ -15,15 +15,6 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.fileSaved = false;
     $scope.name = 'PrototypeWorld';
 
-    $http.get('/Root/Json/tarzan.json')
-         .success(function (data) {
-             $scope.tarzan = data.name;
-             //$scope.Stocks = data.Stocks;
-         })
-         .error(function (data, status, headers, config) {
-             //  Do some error handling here
-         });
-
     $scope.Stocks = null;
 
     $http.get('/Root/Json/stocks.json')
@@ -39,9 +30,94 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.sortReverse = false;  // set the default sort order
     $scope.search = '';     // set the default search/filter term
 
-    $scope.ToggleGreaterThan = function () {
-        $scope.GreaterThan = !$scope.GreaterThan;
+    $scope.ToggleGreaterThanValueDouble = function () {
+        $scope.GreaterThanValueDouble = !$scope.GreaterThanValueDouble;
     };
+
+    $scope.ToggleGreaterThanAmountOwned = function () {
+        $scope.GreaterThanAmountOwned = !$scope.GreaterThanAmountOwned;
+    };
+
+    $scope.ToggleGreaterThanValueOwned = function () {
+        $scope.GreaterThanValueOwned = !$scope.GreaterThanValueOwned;
+    };
+
+    $scope.ToggleGreaterThanWeight = function () {
+        $scope.GreaterThanWeight = !$scope.GreaterThanWeight;
+    };
+
+    $scope.ToggleGreaterThanMarketCap = function () {
+        $scope.GreaterThanMarketCap = !$scope.GreaterThanMarketCap;
+    };
+    $scope.ToggleGreaterThanDividend = function () {
+        $scope.GreaterThanDividend = !$scope.GreaterThanDividend;
+    };
+
+    $scope.ToggleGreaterThanVolatility = function () {
+        $scope.GreaterThanVolatility = !$scope.GreaterThanVolatility;
+    };
+
+    $scope.ToggleGreaterThanBeta = function () {
+        $scope.GreaterThanBeta = !$scope.GreaterThanBeta;
+    };
+
+    $scope.ToggleGreaterThanPriceEarnings = function () {
+        $scope.GreaterThanPriceEarnings = !$scope.GreaterThanPriceEarnings;
+    };
+
+    $scope.ToggleGreaterThanPriceSales = function () {
+        $scope.GreaterThanPriceSales = !$scope.GreaterThanPriceSales;
+    };
+
+    $scope.ToggleGreaterThanConsensus = function () {
+        $scope.GreaterThanConsensus = !$scope.GreaterThanConsensus;
+    };
+
+
+
+    $scope.ToggleGreaterThanVD = function () {
+        $scope.GreaterThanVD = !$scope.GreaterThanVD;
+    };
+
+    $scope.ToggleGreaterThanAO = function () {
+        $scope.GreaterThanAO = !$scope.GreaterThanAO;
+    };
+
+    $scope.ToggleGreaterThanVO = function () {
+        $scope.GreaterThanVO = !$scope.GreaterThanVO;
+    };
+
+    $scope.ToggleGreaterThanW = function () {
+        $scope.GreaterThanW = !$scope.GreaterThanW;
+    };
+
+    $scope.ToggleGreaterThanMC = function () {
+        $scope.GreaterThanMC = !$scope.GreaterThanMC;
+    };
+    $scope.ToggleGreaterThanD = function () {
+        $scope.GreaterThanD = !$scope.GreaterThanD;
+    };
+
+    $scope.ToggleGreaterThanV = function () {
+        $scope.GreaterThanV = !$scope.GreaterThanV;
+    };
+
+    $scope.ToggleGreaterThanB = function () {
+        $scope.GreaterThanB = !$scope.GreaterThanB;
+    };
+
+    $scope.ToggleGreaterThanPE = function () {
+        $scope.GreaterThanPE = !$scope.GreaterThanPE;
+    };
+
+    $scope.ToggleGreaterThanPS = function () {
+        $scope.GreaterThanPS = !$scope.GreaterThanPS;
+    };
+
+    $scope.ToggleGreaterThanC = function () {
+        $scope.GreaterThanC = !$scope.GreaterThanC;
+    };
+
 
     $scope.addFile = function () {
         var input, file, fr;
@@ -144,12 +220,18 @@ app.controller('PrototypeController', function ($scope, $http) {
 
     $scope.CalculateAmountValueAndWeight = function () {
         $scope.myStocks.TotalValue = 0;
+        $scope.myStocks.TotalAmountOwned = 0;
+        $scope.myStocks.TotalVolatility = 0;
+        $scope.myStocks.TotalWeight = 0;
         for (var i = 0; i < $scope.myStocks.length; i++) {
             $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
             $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
+            $scope.myStocks.TotalAmountOwned += $scope.myStocks[i].AmountOwned;
+            $scope.myStocks.TotalVolatility += $scope.myStocks[i].Volatility;
         }
         for (var i = 0; i < $scope.myStocks.length; i++) {
             $scope.myStocks[i].Weight = $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
+            $scope.myStocks.TotalWeight += $scope.myStocks[i].Weight;
         }
     };
 
@@ -163,15 +245,348 @@ app.controller('PrototypeController', function ($scope, $http) {
         return $scope.myStocks.length;
     };
 
-    $scope.f = {};
-    $scope.filter_by = function (field) {
-        if ($scope.g[field] === null) {
-            $scope.g[field] = '';
-            delete $scope.f['__' + field];
+    //$scope.f = {};
+    //$scope.filter_by = function (field) {
+    //    if ($scope.g[field] === null) {
+    //        $scope.g[field] = '';
+    //        delete $scope.f['__' + field];
+    //        return;
+    //    }
+    //    $scope.f['__' + field] = true;
+    //    if ($scope.GreaterThan) {
+    //        $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+    //    } else {
+    //        $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+    //    }
+    //};
+
+    $scope.myVD = {};
+    $scope.filter_byValueDouble = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myVD['__' + field];
             return;
         }
-        $scope.f['__' + field] = true;
-        if ($scope.GreaterThan) {
+        $scope.myVD['__' + field] = true;
+        if ($scope.GreaterThanValueDouble) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myAO = {};
+    $scope.filter_byAmountOwned = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myAO['__' + field];
+            return;
+        }
+        $scope.myAO['__' + field] = true;
+        if ($scope.GreaterThanAmountOwned) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myVO = {};
+    $scope.filter_byValueOwned = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myVO['__' + field];
+            return;
+        }
+        $scope.myVO['__' + field] = true;
+        if ($scope.GreaterThanValueOwned) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myW = {};
+    $scope.filter_byWeight = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myW['__' + field];
+            return;
+        }
+        $scope.myW['__' + field] = true;
+        if ($scope.GreaterThanWeight) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myMC = {};
+    $scope.filter_byMarketCap = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myMC['__' + field];
+            return;
+        }
+        $scope.myMC['__' + field] = true;
+        if ($scope.GreaterThanMarketCap) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myD = {};
+    $scope.filter_byDividend = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myD['__' + field];
+            return;
+        }
+        $scope.myD['__' + field] = true;
+        if ($scope.GreaterThanDividend) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myV = {};
+    $scope.filter_byVolatility = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myV['__' + field];
+            return;
+        }
+        $scope.myV['__' + field] = true;
+        if ($scope.GreaterThanVolatility) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myB = {};
+    $scope.filter_byBeta = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myB['__' + field];
+            return;
+        }
+        $scope.myB['__' + field] = true;
+        if ($scope.GreaterThanBeta) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myPE = {};
+    $scope.filter_byPriceEarnings = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myPE['__' + field];
+            return;
+        }
+        $scope.myPE['__' + field] = true;
+        if ($scope.GreaterThanPriceEarnings) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myPS = {};
+    $scope.filter_byPriceSales = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myPS['__' + field];
+            return;
+        }
+        $scope.myPS['__' + field] = true;
+        if ($scope.GreaterThanPriceSales) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+    $scope.myC = {};
+    $scope.filter_byConsensus = function (field) {
+        if ($scope.myG[field] === null) {
+            $scope.myG[field] = '';
+            delete $scope.myC['__' + field];
+            return;
+        }
+        $scope.myC['__' + field] = true;
+        if ($scope.GreaterThanConsensus) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.myG[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.myG[field]; })
+        }
+    };
+
+
+
+
+    $scope.VD = {};
+    $scope.filter_byVD = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.VD['__' + field];
+            return;
+        }
+        $scope.VD['__' + field] = true;
+        if ($scope.GreaterThanVD) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.AO = {};
+    $scope.filter_byAO = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.AO['__' + field];
+            return;
+        }
+        $scope.AO['__' + field] = true;
+        if ($scope.GreaterThanAO) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.VO = {};
+    $scope.filter_byVO = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.VO['__' + field];
+            return;
+        }
+        $scope.VO['__' + field] = true;
+        if ($scope.GreaterThanVO) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.W = {};
+    $scope.filter_byW = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.W['__' + field];
+            return;
+        }
+        $scope.W['__' + field] = true;
+        if ($scope.GreaterThanW) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.MC = {};
+    $scope.filter_byMC = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.MC['__' + field];
+            return;
+        }
+        $scope.MC['__' + field] = true;
+        if ($scope.GreaterThanMC) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.D = {};
+    $scope.filter_byD = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.D['__' + field];
+            return;
+        }
+        $scope.D['__' + field] = true;
+        if ($scope.GreaterThanD) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.V = {};
+    $scope.filter_byV = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.V['__' + field];
+            return;
+        }
+        $scope.V['__' + field] = true;
+        if ($scope.GreaterThanV) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.B = {};
+    $scope.filter_byB = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.B['__' + field];
+            return;
+        }
+        $scope.B['__' + field] = true;
+        if ($scope.GreaterThanBeta) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.PE = {};
+    $scope.filter_byPE = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.PE['__' + field];
+            return;
+        }
+        $scope.PE['__' + field] = true;
+        if ($scope.GreaterThanPE) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.PS = {};
+    $scope.filter_byPS = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.PS['__' + field];
+            return;
+        }
+        $scope.PS['__' + field] = true;
+        if ($scope.GreaterThanPS) {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
+        } else {
+            $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
+        }
+    };
+
+    $scope.C = {};
+    $scope.filter_byC = function (field) {
+        if ($scope.g[field] === null) {
+            $scope.g[field] = '';
+            delete $scope.C['__' + field];
+            return;
+        }
+        $scope.C['__' + field] = true;
+        if ($scope.GreaterThanC) {
             $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
         } else {
             $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
@@ -241,6 +656,30 @@ app.controller('PrototypeController', function ($scope, $http) {
         if (newValue === null)
             $scope.search.ConsensusDouble = "";
     });
+
+    $scope.GreaterThanValueDouble = true;
+    $scope.GreaterThanAmountOwned = true;
+    $scope.GreaterThanValueOwned = true;
+    $scope.GreaterThanWeight = true;
+    $scope.GreaterThanMarketCap = true;
+    $scope.GreaterThanDividend = true;
+    $scope.GreaterThanVolatility = true;
+    $scope.GreaterThanBeta = true;
+    $scope.GreaterThanPriceEarnings = true;
+    $scope.GreaterThanPriceSales = true;
+    $scope.GreaterThanConsensus = true;
+
+    $scope.GreaterThanVD = true;
+    $scope.GreaterThanAO = true;
+    $scope.GreaterThanVO = true;
+    $scope.GreaterThanW = true;
+    $scope.GreaterThanMC = true;
+    $scope.GreaterThanD = true;
+    $scope.GreaterThanV = true;
+    $scope.GreaterThanB = true;
+    $scope.GreaterThanPE = true;
+    $scope.GreaterThanPS = true;
+    $scope.GreaterThanC = true;
 });
 
 
