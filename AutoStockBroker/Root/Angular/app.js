@@ -1,4 +1,4 @@
-﻿var app = angular.module('AutoStockBroker', []);
+﻿var app = angular.module('AutoStockBroker', ["chart.js"]);
 
 app.run(function ($rootScope) {
     $rootScope.myName = "Sebastian Uddén";
@@ -11,9 +11,17 @@ app.controller('HomeController', function ($scope, $http) {
         $scope.tarzan = data;
     });
 });
+
 app.controller('PrototypeController', function ($scope, $http) {
-    $scope.fileSaved = false;
+    $scope.myStocksSaved = false;
+    $scope.StocksSaved = false;
     $scope.name = 'PrototypeWorld';
+
+    $scope.pieLabels = [];
+    $scope.pieData = [];
+    //$scope.pieData = [300, 500, 100];
+    //$scope.pieLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    
 
     $scope.Stocks = null;
 
@@ -152,13 +160,22 @@ app.controller('PrototypeController', function ($scope, $http) {
 
     $scope.saveToPc = function (data, filename) {
 
-        var theData = $scope.myStocks;
-        var theJSON = JSON.stringify(theData);
-        var uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
-
-        var a = document.getElementById('saveToFile');
-        a.href = uri;
-        $scope.fileSaved = true;
+        if (filename === 'myStocks.json') {
+            var theData = $scope.myStocks;
+            var theJSON = JSON.stringify(theData);
+            var uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
+            var a = document.getElementById('saveToMyStocks');
+            a.href = uri;
+            $scope.myStocksSaved = true;
+        }
+        else if (filename === 'Stocks.json') {
+            var theData = $scope.Stocks;
+            var theJSON = JSON.stringify(theData);
+            var uri = "data:application/json;charset=UTF-8," + encodeURIComponent(theJSON);
+            var a = document.getElementById('saveToStocks');
+            a.href = uri;
+            $scope.StocksSaved = true;
+        }
     };
 
     $scope.myStocks = [];
@@ -212,18 +229,29 @@ app.controller('PrototypeController', function ($scope, $http) {
     };
     $scope.removeOneMoreStock = function (index) {
         $scope.myStocks[index].AmountOwned--;
-        if ($scope.myStocks[index].AmountOwned === 0) {
+        if ($scope.myStocks[index].AmountOwned < 1) {
             $scope.myStocks.splice(index, 1);
         }
         $scope.CalculateAmountValueAndWeight();
     };
 
     $scope.CalculateAmountValueAndWeight = function () {
+        $scope.pieLabels = [];
+        $scope.pieData = [];
+
+        for (var i = 0; i < $scope.myStocks.length; i++) {
+            $scope.pieLabels.Add($scope.myStocks[i].Name);
+            $scope.pieData.Add($scope.myStocks[i].ValueDouble)
+        }
+
         $scope.myStocks.TotalValue = 0;
         $scope.myStocks.TotalAmountOwned = 0;
         $scope.myStocks.TotalVolatility = 0;
         $scope.myStocks.TotalWeight = 0;
         for (var i = 0; i < $scope.myStocks.length; i++) {
+            if ($scope.AmountOwned === 0) {
+                $scope.AmountOwned++;
+            }
             $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
             $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
             $scope.myStocks.TotalAmountOwned += $scope.myStocks[i].AmountOwned;
@@ -244,21 +272,6 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.getMyStocksCount = function () {
         return $scope.myStocks.length;
     };
-
-    //$scope.f = {};
-    //$scope.filter_by = function (field) {
-    //    if ($scope.g[field] === null) {
-    //        $scope.g[field] = '';
-    //        delete $scope.f['__' + field];
-    //        return;
-    //    }
-    //    $scope.f['__' + field] = true;
-    //    if ($scope.GreaterThan) {
-    //        $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] > $scope.g[field]; })
-    //    } else {
-    //        $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
-    //    }
-    //};
 
     $scope.myVD = {};
     $scope.filter_byValueDouble = function (field) {
@@ -592,8 +605,6 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.Stocks.forEach(function (v) { v['__' + field] = v[field] < $scope.g[field]; })
         }
     };
-
-
 
     $scope.$watch('myStocks', function (newValue, oldValue) {
 

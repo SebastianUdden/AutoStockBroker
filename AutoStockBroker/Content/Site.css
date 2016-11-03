@@ -207,6 +207,10 @@ tr:hover {
     border-right:1px dotted #96858F !important;
 }
 
+.extraSmallInput {
+    width:5vw !important;
+}
+
 .smallInput {
     width:7em !important;
 }
