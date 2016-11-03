@@ -12,12 +12,14 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.myStocksSaved = false;
     $scope.StocksSaved = false;
     $scope.ChangeValues = false;
+    $scope.ChartsVisible = false;
     $scope.name = 'PrototypeWorld';
     $scope.portfolioWeights = [];
     $scope.portfolioValueOwned = [];
     $scope.portfolioNames = [];
 
     $scope.ChangeThePie = function () {
+        $scope.ChartsVisible = true;
         $scope.portfolioValueOwned = [];
         $scope.portfolioWeights = [];
         $scope.portfolioNames = [];
