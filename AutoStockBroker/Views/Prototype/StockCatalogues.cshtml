@@ -9,7 +9,7 @@
         <div class="container row" style="width:100%">
             <div class="col-sm-12">
                 <br />
-                <div class="col-sm-6" style="float:left">
+                <div class="col-sm-4" style="float:left">
                     <h2>My Stock Portfolio</h2>
                     <i>Currently invested in {{getMyStocksCount()}} out of {{getTotalStocksCount()}} companies</i>
                     <br />
@@ -25,12 +25,21 @@
                     </form>
                     <br />
                 </div>
-                @*<div class="col-sm-3">
-                        <canvas id="myStocksPie" width="400" height="400"></canvas>
-                    </div>*@
-                <div class="col-sm-6">
-                    <canvas id="pie" class="chart chart-pie"
-                            chart-data="pieData" chart-labels="pieLabels" chart-options="options"></canvas>
+                <div class="col-sm-4">
+                    <canvas id="bar" 
+                            class="chart chart-bar" 
+                            chart-data="barData" 
+                            chart-labels="barLabels" 
+                            chart-series="series" >
+                    </canvas>
+                </div>
+                <div class="col-sm-4">
+                    <canvas id="pie" 
+                            class="chart chart-pie"
+                            chart-data="pieData" 
+                            chart-labels="pieLabels" 
+                            chart-options="options">
+                    </canvas>
                 </div>
                 <button class="btn btn-info" ng-click="ChangeThePie();">Change</button>
                 <hr />

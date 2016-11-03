@@ -6,10 +6,6 @@ app.run(function ($rootScope) {
 
 app.controller('HomeController', function ($scope, $http) {
     $scope.name = 'AngularWorld';
-
-    $http.get('/Root/Json/testJson.txt').success(function (data) {
-        $scope.tarzan = data;
-    });
 });
 
 app.controller('PrototypeController', function ($scope, $http) {
@@ -18,26 +14,24 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.ChangeValues = false;
     $scope.name = 'PrototypeWorld';
     $scope.portfolioWeights = [];
+    $scope.portfolioValueOwned = [];
     $scope.portfolioNames = [];
 
     $scope.ChangeThePie = function () {
-        //$scope.portfolioWeights = [];
-        //$scope.portfolioNames = [];
-        //for (var i = 0; i < $scope.myStocks.length; i++) {
-        //    $scope.portfolioWeights.Push($scope.myStocks[i].Weight)
-        //    $scope.portfolioNames.Push($scope.myStocks[i].Names)
-        //}
+        $scope.portfolioValueOwned = [];
+        $scope.portfolioWeights = [];
+        $scope.portfolioNames = [];
+        for (var i = 0; i < $scope.myStocks.length; i++) {
+            $scope.portfolioValueOwned.push($scope.myStocks[i].ValueOwned);
+            $scope.portfolioWeights.push($scope.myStocks[i].Weight);
+            $scope.portfolioNames.push($scope.myStocks[i].Name);
+        };
 
-        //$scope.pieData = [$scope.myStocks[0].Weight, $scope.myStocks[1].Weight, $scope.myStocks[2].Weight];
-        //$scope.pieLabels = [$scope.myStocks[0].Name, $scope.myStocks[1].Name, $scope.myStocks[2].Name];
+        $scope.pieData = $scope.portfolioWeights;
+        $scope.pieLabels = $scope.portfolioNames;
+        $scope.barData = $scope.portfolioValueOwned;
+        $scope.barLabels = $scope.portfolioNames;
     };
-    //$scope.pieLabels = [];
-    //$scope.pieData = [];
-    $scope.pieData = [300, 500, 100];
-    $scope.pieLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-
-    
-
 
     $scope.Stocks = null;
 
@@ -223,6 +217,7 @@ app.controller('PrototypeController', function ($scope, $http) {
             }
         };
         $scope.CalculateAmountValueAndWeight();
+        $scope.ChangeThePie();
     };
     $scope.removeStock = function (stockName) {
         for (var i = 0; i < $scope.myStocks.length; i++) {
@@ -237,11 +232,13 @@ app.controller('PrototypeController', function ($scope, $http) {
             }
         }
         $scope.CalculateAmountValueAndWeight();
+        $scope.ChangeThePie();
     };
 
     $scope.addOneMoreStock = function (index) {
         $scope.myStocks[index].AmountOwned++;
         $scope.CalculateAmountValueAndWeight();
+        $scope.ChangeThePie();
     };
     $scope.removeOneMoreStock = function (index) {
         $scope.myStocks[index].AmountOwned--;
@@ -249,22 +246,16 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.myStocks.splice(index, 1);
         }
         $scope.CalculateAmountValueAndWeight();
+        $scope.ChangeThePie();
     };
 
     $scope.CalculateValues = function () {
         $scope.CalculateAmountValueAndWeight();
+        $scope.ChangeThePie();
         $scope.ChangeValues = !$scope.ChangeValues;
     };
 
     $scope.CalculateAmountValueAndWeight = function () {
-        //$scope.pieLabels = [];
-        //$scope.pieData = [];
-
-        //for (var i = 0; i < $scope.myStocks.length; i++) {
-        //    $scope.pieLabels.Add($scope.myStocks[i].Name);
-        //    $scope.pieData.Add($scope.myStocks[i].ValueDouble)
-        //}
-
         $scope.myStocks.TotalValue = 0;
         $scope.myStocks.TotalAmountOwned = 0;
         $scope.myStocks.TotalVolatility = 0;
