@@ -62,7 +62,7 @@ th, td {
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f7f7f7;
 }
 
 tr:hover {
@@ -221,4 +221,16 @@ tr:hover {
 
 .width-12vh {
     width:12vh !important;
+}
+
+.btn-sm {
+    padding: 0px 5px;
+    margin-right: 3px;
+    font-size: 12px;
+    line-height: 1.4;
+    border-radius: 3px;
+}
+
+.btn {
+    padding: 0;
 }
