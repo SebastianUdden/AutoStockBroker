@@ -108,7 +108,7 @@
                     <!-- #endregion -->
                     <!-- #region Dividend (%) -->
                     <th class="numbers smallInput">
-                        <a href="#" ng-click="sortType = 'DividendDouble'; sortReverse = !sortReverse">Dividend(%)</a>
+                        <a href="#" ng-click="sortType = 'DividendDouble'; sortReverse = !sortReverse">Dividend (%)</a>
                         <span ng-show="sortType == 'DividendDouble' && !sortReverse" class="fa fa-caret-down"></span>
                         <span ng-show="sortType == 'DividendDouble' && sortReverse" class="fa fa-caret-up"></span>
                     </th>
@@ -204,9 +204,9 @@
                     <td class="numbers">{{stock.PriceSales | number:2 }}</td>
                     <td class="numbers">{{stock.ConsensusDouble | number:0 }}</td>
                 </tr>
-                <tr style="font-size:large; color:#909942">
+                <tr style="background: #fff; font-weight:bold; border-top: 1px solid #D5D5D5; border-bottom: 1px solid #D5D5D5">
                     <td class="width-12vh"></td>
-                    <td></td>
+                    <td>Total</td>
                     <td></td>
                     <td></td>
                     <td class="numbers"></td>
@@ -258,13 +258,6 @@
                     <a href="#" ng-click="sortType = 'ValueDouble'; sortReverse = !sortReverse">Price</a>
                     <span ng-show="sortType == 'ValueDouble' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'ValueDouble' && sortReverse" class="fa fa-caret-up"></span>
-                </th>
-                <!-- #endregion -->
-                <!-- #region Nr of Shares -->
-                <th class="numbers smallInput">
-                    <a href="#" ng-click="sortType = 'AmountOwned'; sortReverse = !sortReverse">Nr of shares</a>
-                    <span ng-show="sortType == 'AmountOwned' && !sortReverse" class="fa fa-caret-down"></span>
-                    <span ng-show="sortType == 'AmountOwned' && sortReverse" class="fa fa-caret-up"></span>
                 </th>
                 <!-- #endregion -->
                 <!-- #region Value -->
@@ -329,15 +322,14 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanVD();"><span ng-show="GreaterThanVD">Above</span><span style="color:orangered;" ng-show="!GreaterThanVD">BelowValue</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanAO();"><span ng-show="GreaterThanAO">Above</span><span style="color:orangered;" ng-show="!GreaterThanAO">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanMC();"><span ng-show="GreaterThanMC">Above</span><span style="color:orangered;" ng-show="!GreaterThanMC">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanD();"><span ng-show="GreaterThanD">Above</span><span style="color:orangered;" ng-show="!GreaterThanD">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanV();"><span ng-show="GreaterThanV">Above</span><span style="color:orangered;" ng-show="!GreaterThanV">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanB();"><span ng-show="GreaterThanB">Above</span><span style="color:orangered;" ng-show="!GreaterThanB">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPE();"><span ng-show="GreaterThanPE">Above</span><span style="color:orangered;" ng-show="!GreaterThanPE">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPS();"><span ng-show="GreaterThanPS">Above</span><span style="color:orangered;" ng-show="!GreaterThanPS">Below</span></button></td>
-                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanC();"><span ng-show="GreaterThanC">Above</span><span style="color:orangered;" ng-show="!GreaterThanC">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanVD();"><span ng-show="GreaterThanVD">Above</span><span style="color:#fff;" ng-show="!GreaterThanVD">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanMC();"><span ng-show="GreaterThanMC">Above</span><span style="color:#fff;" ng-show="!GreaterThanMC">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanD();"><span ng-show="GreaterThanD">Above</span><span style="color:#fff;" ng-show="!GreaterThanD">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanV();"><span ng-show="GreaterThanV">Above</span><span style="color:#fff;" ng-show="!GreaterThanV">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanB();"><span ng-show="GreaterThanB">Above</span><span style="color:#fff;" ng-show="!GreaterThanB">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPE();"><span ng-show="GreaterThanPE">Above</span><span style="color:#fff;" ng-show="!GreaterThanPE">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPS();"><span ng-show="GreaterThanPS">Above</span><span style="color:#fff;" ng-show="!GreaterThanPS">Below</span></button></td>
+                <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanC();"><span ng-show="GreaterThanC">Above</span><span style="color:#fff;" ng-show="!GreaterThanC">Below</span></button></td>
             </tr>
             @*<tr class="paper-bg">
                     <th class="width-12vh"></th>
@@ -360,7 +352,6 @@
                 <th><input type="text" class="input-sm smallInput" ng-model="search.Industry" placeholder="Industry" /></th>
                 <th><input type="text" class="input-sm smallInput" ng-model="search.Currency" placeholder="Currency" /></th>
                 <th><input type="number" class="input-sm smallInput" ng-model="g.ValueDouble" ng-change="filter_byVD('ValueDouble')" placeholder="Price" /></th>
-                <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="g.AmountOwned" ng-change="filter_byAO('AmountOwned')" placeholder="Shares" /></th>
                 <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="g.MarketCapInt" ng-change="filter_byMC('MarketCapInt')" placeholder="M.Cap" /></th>
                 <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="g.DividendDouble" ng-change="filter_byD('DividendDouble')" placeholder="Dividend" /></th>
                 <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="g.Volatility" ng-change="filter_byV('Volatility')" placeholder="Volatility" /></th>
@@ -377,7 +368,6 @@
                 <td>{{stock.Industry}}</td>
                 <td>{{stock.Currency}}</td>
                 <td class="numbers">{{stock.ValueDouble | number:2 }}</td>
-                <td class="numbers">{{stock.AmountOwned}}</td>
                 <td class="numbers">{{stock.MarketCap}}</td>
                 <td class="numbers">{{stock.Dividend | number:2 }}</td>
                 <td class="numbers">{{stock.Volatility | number:2 }}</td>
