@@ -21,7 +21,7 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.pieData = [];
     //$scope.pieData = [300, 500, 100];
     //$scope.pieLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-    
+
 
     $scope.Stocks = null;
 
@@ -247,6 +247,11 @@ app.controller('PrototypeController', function ($scope, $http) {
         $scope.myStocks.TotalValue = 0;
         $scope.myStocks.TotalAmountOwned = 0;
         $scope.myStocks.TotalVolatility = 0;
+        $scope.myStocks.TotalDividend = 0;
+        $scope.myStocks.TotalBeta = 0;
+        $scope.myStocks.TotalPE = 0;
+        $scope.myStocks.TotalPS = 0;
+        $scope.myStocks.TotalRek = 0;
         $scope.myStocks.TotalWeight = 0;
         for (var i = 0; i < $scope.myStocks.length; i++) {
             if ($scope.AmountOwned === 0) {
@@ -255,12 +260,16 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
             $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
             $scope.myStocks.TotalAmountOwned += $scope.myStocks[i].AmountOwned;
-            $scope.myStocks[i].Volatility = $scope.myStocks[i].Volatility / 100;
         }
         for (var i = 0; i < $scope.myStocks.length; i++) {
             $scope.myStocks[i].Weight = $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
-            $scope.myStocks.TotalWeight += $scope.myStocks[i].Weight;
+            $scope.myStocks.TotalWeight += $scope.myStocks[i].Weight * 100;
+            $scope.myStocks.TotalDividend += $scope.myStocks[i].DividendDouble * $scope.myStocks[i].Weight / 100;
             $scope.myStocks.TotalVolatility += $scope.myStocks[i].Volatility * $scope.myStocks[i].Weight;
+            $scope.myStocks.TotalBeta += $scope.myStocks[i].BetaDouble * $scope.myStocks[i].Weight / 100;
+            $scope.myStocks.TotalPE += $scope.myStocks[i].PriceEarningsDouble * $scope.myStocks[i].Weight / 100;
+            $scope.myStocks.TotalPS += $scope.myStocks[i].PriceSalesDouble * $scope.myStocks[i].Weight / 100;
+            $scope.myStocks.TotalRek += $scope.myStocks[i].ConsensusDouble * $scope.myStocks[i].Weight;
         }
     };
 
