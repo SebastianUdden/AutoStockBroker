@@ -15,12 +15,28 @@ app.controller('HomeController', function ($scope, $http) {
 app.controller('PrototypeController', function ($scope, $http) {
     $scope.myStocksSaved = false;
     $scope.StocksSaved = false;
+    $scope.ChangeValues = false;
     $scope.name = 'PrototypeWorld';
+    $scope.portfolioWeights = [];
+    $scope.portfolioNames = [];
 
-    $scope.pieLabels = [];
-    $scope.pieData = [];
-    //$scope.pieData = [300, 500, 100];
-    //$scope.pieLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    $scope.ChangeThePie = function () {
+        //$scope.portfolioWeights = [];
+        //$scope.portfolioNames = [];
+        //for (var i = 0; i < $scope.myStocks.length; i++) {
+        //    $scope.portfolioWeights.Push($scope.myStocks[i].Weight)
+        //    $scope.portfolioNames.Push($scope.myStocks[i].Names)
+        //}
+
+        //$scope.pieData = [$scope.myStocks[0].Weight, $scope.myStocks[1].Weight, $scope.myStocks[2].Weight];
+        //$scope.pieLabels = [$scope.myStocks[0].Name, $scope.myStocks[1].Name, $scope.myStocks[2].Name];
+    };
+    //$scope.pieLabels = [];
+    //$scope.pieData = [];
+    $scope.pieData = [300, 500, 100];
+    $scope.pieLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+
+    
 
 
     $scope.Stocks = null;
@@ -233,6 +249,11 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.myStocks.splice(index, 1);
         }
         $scope.CalculateAmountValueAndWeight();
+    };
+
+    $scope.CalculateValues = function () {
+        $scope.CalculateAmountValueAndWeight();
+        $scope.ChangeValues = !$scope.ChangeValues;
     };
 
     $scope.CalculateAmountValueAndWeight = function () {
@@ -629,8 +650,13 @@ app.controller('PrototypeController', function ($scope, $http) {
     });
 
     $scope.$watch('search.AmountOwned', function (newValue, oldValue) {
-        if (newValue === null)
+        if (newValue === null){
             $scope.search.AmountOwned = "";
+            $scope.CalculateAmountValueAndWeight();
+        }
+        else {
+            $scope.CalculateAmountValueAndWeight();
+        }
     });
 
     $scope.$watch('search.ValueOwned', function (newValue, oldValue) {
