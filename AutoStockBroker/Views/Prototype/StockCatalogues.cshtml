@@ -24,11 +24,6 @@
                         </fieldset>
                     </form>
                     <br />
-                    <div class="alert alert-info">
-                        <p>
-                            Displaying {{filteredMyStocks.length}} of {{getMyStocksCount()}} portfolio stocks. When you are finished, save your portfolio as a json and upload it when you want to continue later.
-                        </p>
-                    </div>
                 </div>
                 @*<div class="col-sm-3">
                         <canvas id="myStocksPie" width="400" height="400"></canvas>
@@ -148,7 +143,7 @@
                     <!-- #endregion -->
                     <!-- #region Rek -->
                     <th class="numbers smallInput">
-                        <a href="#" ng-click="sortType = 'ConsensusDouble'; sortReverse = !sortReverse">Rek</a>
+                        <a href="#" ng-click="sortType = 'ConsensusDouble'; sortReverse = !sortReverse">Rek (%)</a>
                         <span ng-show="sortType == 'ConsensusDouble' && !sortReverse" class="fa fa-caret-down"></span>
                         <span ng-show="sortType == 'ConsensusDouble' && sortReverse" class="fa fa-caret-up"></span>
                     </th>
@@ -207,35 +202,30 @@
                     <td class="numbers">{{stock.Beta | number:2 }}</td>
                     <td class="numbers">{{stock.PriceEarnings | number:2 }}</td>
                     <td class="numbers">{{stock.PriceSales | number:2 }}</td>
-                    <td class="numbers">{{stock.Consensus}}</td>
+                    <td class="numbers">{{stock.ConsensusDouble | number:0 }}</td>
                 </tr>
-                <tr style="font-size:x-large; color:#909942">
+                <tr style="font-size:large; color:#909942">
                     <td class="width-12vh"></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td class="numbers"></td>
-                    <td class="numbers">{{myStocks.TotalAmountOwned| number:0 }}</td>
+                    <td class="numbers">{{myStocks.TotalAmountOwned | number:0 }}</td>
                     <td class="numbers">{{myStocks.TotalValue | number:2 }}</td>
-                    <td class="numbers border-right">{{myStocks.TotalWeight| number:2 }}</td>
+                    <td class="numbers border-right">{{myStocks.TotalWeight | number:2 }}</td>
                     <td class="numbers"></td>
-                    <td class="numbers"></td>
-                    <td class="numbers">{{myStocks.TotalVolatility| number:2 }}</td>
-                    <td class="numbers"></td>
-                    <td class="numbers"></td>
-                    <td class="numbers"></td>
-                    <td class="numbers"></td>
+                    <td class="numbers">{{myStocks.TotalDividend | number:2 }}</td>
+                    <td class="numbers">{{myStocks.TotalVolatility | number:2 }}</td>
+                    <td class="numbers">{{myStocks.TotalBeta | number:2 }}</td>
+                    <td class="numbers">{{myStocks.TotalPE | number:2 }}</td>
+                    <td class="numbers">{{myStocks.TotalPS | number:2 }}</td>
+                    <td class="numbers">{{myStocks.TotalRek | number:0 }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <br />
 
-    <div class="alert alert-info">
-        <p>
-            Displaying {{filteredStocks.length}} of all {{getTotalStocksCount()}} stocks. Add stocks to your portfolio, save it as a json and upload it when you want to continue later.
-        </p>
-    </div>
     <a id="saveToStocks" ng-show="StocksSaved" class="text-info">Right-click this link and click 'save as...'</a>
     <br />
     <table class="mainStockTable" id="searchTextResults">
@@ -328,7 +318,7 @@
                 <!-- #endregion -->
                 <!-- #region Rek -->
                 <th class="numbers smallInput">
-                    <a href="#" ng-click="sortType = 'ConsensusDouble'; sortReverse = !sortReverse">Rek</a>
+                    <a href="#" ng-click="sortType = 'ConsensusDouble'; sortReverse = !sortReverse">Rek (%)</a>
                     <span ng-show="sortType == 'ConsensusDouble' && !sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'ConsensusDouble' && sortReverse" class="fa fa-caret-up"></span>
                 </th>
@@ -365,7 +355,7 @@
                     <th class="numbers"><input type="number" class="smallInput" ng-model="g.ConsensusDouble" ng-change="filter_by('ConsensusDouble')" placeholder="Rek" /></th>
                 </tr>*@
             <tr class="paper-bg">
-                <th class="width-12vh"></th>
+                <th class="width-12vh">{{filteredStocks.length}} / {{getTotalStocksCount()}}</th>
                 <th><input type="text" class="input-sm largeInput" ng-model="search.Name" placeholder="Name" /></th>
                 <th><input type="text" class="input-sm smallInput" ng-model="search.Industry" placeholder="Industry" /></th>
                 <th><input type="text" class="input-sm smallInput" ng-model="search.Currency" placeholder="Currency" /></th>
@@ -394,7 +384,7 @@
                 <td class="numbers">{{stock.Beta | number:2 }}</td>
                 <td class="numbers">{{stock.PriceEarnings | number:2 }}</td>
                 <td class="numbers">{{stock.PriceSales | number:2 }}</td>
-                <td class="numbers">{{stock.Consensus}}</td>
+                <td class="numbers">{{stock.ConsensusDouble | number:0 }}</td>
             </tr>
         </tbody>
     </table>
