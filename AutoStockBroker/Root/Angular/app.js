@@ -236,13 +236,13 @@ app.controller('PrototypeController', function ($scope, $http) {
     };
 
     $scope.CalculateAmountValueAndWeight = function () {
-        $scope.pieLabels = [];
-        $scope.pieData = [];
+        //$scope.pieLabels = [];
+        //$scope.pieData = [];
 
-        for (var i = 0; i < $scope.myStocks.length; i++) {
-            $scope.pieLabels.Add($scope.myStocks[i].Name);
-            $scope.pieData.Add($scope.myStocks[i].ValueDouble)
-        }
+        //for (var i = 0; i < $scope.myStocks.length; i++) {
+        //    $scope.pieLabels.Add($scope.myStocks[i].Name);
+        //    $scope.pieData.Add($scope.myStocks[i].ValueDouble)
+        //}
 
         $scope.myStocks.TotalValue = 0;
         $scope.myStocks.TotalAmountOwned = 0;
@@ -255,11 +255,12 @@ app.controller('PrototypeController', function ($scope, $http) {
             $scope.myStocks[i].ValueOwned = $scope.myStocks[i].ValueDouble * $scope.myStocks[i].AmountOwned;
             $scope.myStocks.TotalValue += $scope.myStocks[i].ValueOwned;
             $scope.myStocks.TotalAmountOwned += $scope.myStocks[i].AmountOwned;
-            $scope.myStocks.TotalVolatility += $scope.myStocks[i].Volatility;
+            $scope.myStocks[i].Volatility = $scope.myStocks[i].Volatility / 100;
         }
         for (var i = 0; i < $scope.myStocks.length; i++) {
             $scope.myStocks[i].Weight = $scope.myStocks[i].ValueOwned / $scope.myStocks.TotalValue;
             $scope.myStocks.TotalWeight += $scope.myStocks[i].Weight;
+            $scope.myStocks.TotalVolatility += $scope.myStocks[i].Volatility * $scope.myStocks[i].Weight;
         }
     };
 
