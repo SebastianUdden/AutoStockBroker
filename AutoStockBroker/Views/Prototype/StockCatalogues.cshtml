@@ -31,8 +31,8 @@
                     </div>
                 </div>
                 @*<div class="col-sm-3">
-                    <canvas id="myStocksPie" width="400" height="400"></canvas>
-                </div>*@
+                        <canvas id="myStocksPie" width="400" height="400"></canvas>
+                    </div>*@
                 <div class="col-sm-6">
                     <canvas id="pie" class="chart chart-pie"
                             chart-data="pieData" chart-labels="pieLabels" chart-options="options"></canvas>
@@ -154,40 +154,42 @@
                     </th>
                     <!-- #endregion -->
                 </tr>
-                <tr class="paper-bg">
-                    <th class="width-12vh"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanValueDouble();"><span ng-show="GreaterThanValueDouble">Above</span><span style="color:orangered;" ng-show="!GreaterThanValueDouble">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanAmountOwned();"><span ng-show="GreaterThanAmountOwned">Above</span><span style="color:orangered;" ng-show="!GreaterThanAmountOwned">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanValueOwned();"><span ng-show="GreaterThanValueOwned">Above</span><span style="color:orangered;" ng-show="!GreaterThanValueOwned">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanWeight();"><span ng-show="GreaterThanWeight">Above</span><span style="color:orangered;" ng-show="!GreaterThanWeight">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanMarketCap();"><span ng-show="GreaterThanMarketCap">Above</span><span style="color:orangered;" ng-show="!GreaterThanMarketCap">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanDividend();"><span ng-show="GreaterThanDividend">Above</span><span style="color:orangered;" ng-show="!GreaterThanDividend">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanVolatility();"><span ng-show="GreaterThanVolatility">Above</span><span style="color:orangered;" ng-show="!GreaterThanVolatility">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanBeta();"><span ng-show="GreaterThanBeta">Above</span><span style="color:orangered;" ng-show="!GreaterThanBeta">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPriceEarnings();"><span ng-show="GreaterThanPriceEarnings">Above</span><span style="color:orangered;" ng-show="!GreaterThanPriceEarnings">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPriceSales();"><span ng-show="GreaterThanPriceSales">Above</span><span style="color:orangered;" ng-show="!GreaterThanPriceSales">Below</span></button></td>
-                    <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanConsensus();"><span ng-show="GreaterThanConsensus">Above</span><span style="color:orangered;" ng-show="!GreaterThanConsensus">Below</span></button></td>
-                </tr>
-                <tr class="paper-bg">
-                    <th class="width-12vh"></th>
-                    <th><input type="text" class="input-sm smallInput" ng-model="mySearch.Name" placeholder="Name" /></th>
-                    <th><input type="text" class="input-sm smallInput" ng-model="mySearch.Industry" placeholder="Industry" /></th>
-                    <th><input type="text" class="input-sm extraSmallInput" ng-model="mySearch.Currency" placeholder="Currency" /></th>
-                    <th><input type="number" class="input-sm smallInput" ng-model="myG.ValueDouble" ng-change="filter_byValueDouble('ValueDouble')" placeholder="Price" /></th>
-                    <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.AmountOwned" ng-change="filter_byAmountOwned('AmountOwned')" placeholder="Shares" /></th>
-                    <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.ValueOwned" ng-change="filter_byValueOwned('ValueOwned')" placeholder="Value" /></th>
-                    <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.Weight" ng-change="filter_byWeight('Weight')" placeholder="Weight" /></th>
-                    <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.MarketCapInt" ng-change="filter_byMarketCap('MarketCapInt')" placeholder="M.Cap" /></th>
-                    <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.DividendDouble" ng-change="filter_byDividend('DividendDouble')" placeholder="Dividend" /></th>
-                    <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.Volatility" ng-change="filter_byVolatility('Volatility')" placeholder="Volatility" /></th>
-                    <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.BetaDouble" ng-change="filter_byBeta('BetaDouble')" placeholder="Beta" /></th>
-                    <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.PriceEarningsDouble" ng-change="filter_byPriceEarnings('PriceEarningsDouble')" placeholder="P/E" /></th>
-                    <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.PriceSalesDouble" ng-change="filter_byPriceSales('PriceSalesDouble')" placeholder="P/S" /></th>
-                    <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.ConsensusDouble" ng-change="filter_byConsensus('ConsensusDouble')" placeholder="Rek" /></th>
-                </tr>
+                <!-- #region Commented, maybe use later -->
+                @*<tr class="paper-bg">
+                        <th class="width-12vh"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanValueDouble();"><span ng-show="GreaterThanValueDouble">Above</span><span style="color:orangered;" ng-show="!GreaterThanValueDouble">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanAmountOwned();"><span ng-show="GreaterThanAmountOwned">Above</span><span style="color:orangered;" ng-show="!GreaterThanAmountOwned">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanValueOwned();"><span ng-show="GreaterThanValueOwned">Above</span><span style="color:orangered;" ng-show="!GreaterThanValueOwned">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanWeight();"><span ng-show="GreaterThanWeight">Above</span><span style="color:orangered;" ng-show="!GreaterThanWeight">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanMarketCap();"><span ng-show="GreaterThanMarketCap">Above</span><span style="color:orangered;" ng-show="!GreaterThanMarketCap">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanDividend();"><span ng-show="GreaterThanDividend">Above</span><span style="color:orangered;" ng-show="!GreaterThanDividend">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanVolatility();"><span ng-show="GreaterThanVolatility">Above</span><span style="color:orangered;" ng-show="!GreaterThanVolatility">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanBeta();"><span ng-show="GreaterThanBeta">Above</span><span style="color:orangered;" ng-show="!GreaterThanBeta">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPriceEarnings();"><span ng-show="GreaterThanPriceEarnings">Above</span><span style="color:orangered;" ng-show="!GreaterThanPriceEarnings">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanPriceSales();"><span ng-show="GreaterThanPriceSales">Above</span><span style="color:orangered;" ng-show="!GreaterThanPriceSales">Below</span></button></td>
+                        <td><button style="width:100%;" class="btn btn-info" ng-click="ToggleGreaterThanConsensus();"><span ng-show="GreaterThanConsensus">Above</span><span style="color:orangered;" ng-show="!GreaterThanConsensus">Below</span></button></td>
+                    </tr>*@
+                @*<tr class="paper-bg">
+                        <th class="width-12vh"></th>
+                        <th><input type="text" class="input-sm smallInput" ng-model="mySearch.Name" placeholder="Name" /></th>
+                        <th><input type="text" class="input-sm smallInput" ng-model="mySearch.Industry" placeholder="Industry" /></th>
+                        <th><input type="text" class="input-sm extraSmallInput" ng-model="mySearch.Currency" placeholder="Currency" /></th>
+                        <th><input type="number" class="input-sm smallInput" ng-model="myG.ValueDouble" ng-change="filter_byValueDouble('ValueDouble')" placeholder="Price" /></th>
+                        <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.AmountOwned" ng-change="filter_byAmountOwned('AmountOwned')" placeholder="Shares" /></th>
+                        <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.ValueOwned" ng-change="filter_byValueOwned('ValueOwned')" placeholder="Value" /></th>
+                        <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.Weight" ng-change="filter_byWeight('Weight')" placeholder="Weight" /></th>
+                        <th class="numbers"><input type="number" class="input-sm smallInput" ng-model="myG.MarketCapInt" ng-change="filter_byMarketCap('MarketCapInt')" placeholder="M.Cap" /></th>
+                        <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.DividendDouble" ng-change="filter_byDividend('DividendDouble')" placeholder="Dividend" /></th>
+                        <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.Volatility" ng-change="filter_byVolatility('Volatility')" placeholder="Volatility" /></th>
+                        <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.BetaDouble" ng-change="filter_byBeta('BetaDouble')" placeholder="Beta" /></th>
+                        <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.PriceEarningsDouble" ng-change="filter_byPriceEarnings('PriceEarningsDouble')" placeholder="P/E" /></th>
+                        <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.PriceSalesDouble" ng-change="filter_byPriceSales('PriceSalesDouble')" placeholder="P/S" /></th>
+                        <th class="numbers"><input type="number" class="input-sm extraSmallInput" ng-model="myG.ConsensusDouble" ng-change="filter_byConsensus('ConsensusDouble')" placeholder="Rek" /></th>
+                    </tr>*@
+                <!-- #endregion -->
             </theader>
             <tbody>
                 <tr ng-repeat="stock in myStocks | orderBy:sortType:sortReverse | filter:mySearch | filter:myVD | filter:myAO | filter:myVO | filter: myW | filter: myMC | filter: myD | filter: myV | filter: myB | filter: myPE | filter: myPS | filter: myC as filteredMyStocks">
