@@ -1,5 +1,23 @@
 ﻿var app = angular.module('AutoStockBroker', ["chart.js"]);
 
+// your module, then...
+//.directive('tab', [function() {
+//    return {
+//        restrict: 'E',
+//        replace: true,
+//        template: '<li><a href="#/{{i.name}}">{{i.name}}</a></li>',
+//        link: function(scope, elm, attrs) {
+//            elm
+//                .on('mouseenter',function() {
+//                    elm.css('color','#'+i.colour);
+//                })
+//                .on('mouseleave',function() {
+//                    elm.css('color','white');
+//                });
+//        }
+//    };
+//}]);
+
 app.run(function ($rootScope) {
     $rootScope.myName = "Sebastian Uddén";
 });
@@ -9,30 +27,47 @@ app.controller('HomeController', function ($scope, $http) {
 });
 
 app.controller('PrototypeController', function ($scope, $http) {
+    $scope.name = 'PrototypeWorld';
     $scope.myStocksSaved = false;
     $scope.StocksSaved = false;
     $scope.ChangeValues = false;
     $scope.ChartsVisible = false;
-    $scope.name = 'PrototypeWorld';
-    $scope.portfolioWeights = [];
-    $scope.portfolioValueOwned = [];
+    $scope.chartsTab = 1;
+
     $scope.portfolioNames = [];
+    $scope.portfolioValueOwned = [];
+    $scope.portfolioWeight = [];
+    $scope.portfolioMarketCap = [];
+    $scope.portfolioVolatility = [];
+    $scope.portfolioDividend = [];
+    $scope.portfolioPE = [];
+    $scope.portfolioPS = [];
 
     $scope.ChangeThePie = function () {
         $scope.ChartsVisible = true;
-        $scope.portfolioValueOwned = [];
-        $scope.portfolioWeights = [];
         $scope.portfolioNames = [];
+        $scope.portfolioValueOwned = [];
+        $scope.portfolioWeight = [];
+        $scope.portfolioMarketCap = [];
+        $scope.portfolioVolatility = [];
+        $scope.portfolioDividend = [];
+        $scope.portfolioPE = [];
+        $scope.portfolioPS = [];
         for (var i = 0; i < $scope.myStocks.length; i++) {
             $scope.portfolioValueOwned.push($scope.myStocks[i].ValueOwned);
-            $scope.portfolioWeights.push($scope.myStocks[i].Weight);
+            $scope.portfolioWeight.push($scope.myStocks[i].Weight);
             $scope.portfolioNames.push($scope.myStocks[i].Name);
+            $scope.portfolioPE.push($scope.myStocks[i].PriceEarningsDouble);
+            $scope.portfolioPS.push($scope.myStocks[i].PriceSalesDouble);
+            $scope.portfolioMarketCap.push($scope.myStocks[i].MarketCapInt);
+            $scope.portfolioVolatility.push($scope.myStocks[i].Volatility);
+            $scope.portfolioDividend.push($scope.myStocks[i].DividendDouble);
         };
 
-        $scope.pieData = $scope.portfolioWeights;
-        $scope.pieLabels = $scope.portfolioNames;
-        $scope.barData = $scope.portfolioValueOwned;
-        $scope.barLabels = $scope.portfolioNames;
+        //$scope.pieData = $scope.portfolioWeight;
+        //$scope.pieLabels = $scope.portfolioNames;
+        //$scope.barData = $scope.portfolioValueOwned;
+        //$scope.barLabels = $scope.portfolioNames;
     };
 
     $scope.Stocks = null;
@@ -167,6 +202,8 @@ app.controller('PrototypeController', function ($scope, $http) {
         function receivedText(e) {
             lines = e.target.result;
             $scope.myStocks = JSON.parse(lines);
+            $scope.CalculateAmountValueAndWeight();
+            $scope.ChangeThePie();
         }
     }
 

@@ -6,15 +6,13 @@
 
 <div ng-controller="PrototypeController">
     <div id="CheckedList">
-        <div class="container row" style="width:100%">
+        <div class="container row" style="width:100%; min-height:40vh">
             <div class="col-sm-12">
                 <br />
                 <div class="col-sm-4" style="float:left">
                     <h2>My Stock Portfolio</h2>
                     <i>Currently invested in {{getMyStocksCount()}} out of {{getTotalStocksCount()}} companies</i>
                     <br />
-
-
                     <form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
                         <fieldset>
                             <h3>Upload Portfolio</h3>
@@ -25,23 +23,76 @@
                     </form>
                     <br />
                 </div>
-                <div class="col-sm-4">
-                    <h5 ng-show="ChartsVisible">Portfolio Value</h5>
-                    <canvas id="bar" 
-                            class="chart chart-bar" 
-                            chart-data="barData" 
-                            chart-labels="barLabels" 
-                            chart-series="series" >
-                    </canvas>
-                </div>
-                <div class="col-sm-4">
-                    <h5 ng-show="ChartsVisible">Portfolio Weight</h5>
-                    <canvas id="pie" 
-                            class="chart chart-pie"
-                            chart-data="pieData" 
-                            chart-labels="pieLabels" 
-                            chart-options="options">
-                    </canvas>
+                <div ng-show="ChartsVisible" class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-4 paperMenuItem-bg" style="border-radius:25px;" ng-click="chartsTab = 1">
+                            Value and Weight
+                        </div>
+                        <div class="col-sm-4 paperMenuItem-bg" style="border-radius:25px;" ng-click="chartsTab = 2">
+                            P/E and P/S
+                        </div>
+                        <div class="col-sm-4 paperMenuItem-bg" style="border-radius:25px;" ng-click="chartsTab = 3">
+                            Market Cap and Volatility
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div ng-show="chartsTab === 1">
+                            <div class="col-sm-6">
+                                <h5>Portfolio Value</h5>
+                                <canvas id="bar"
+                                        class="chart chart-bar"
+                                        chart-data="portfolioValueOwned"
+                                        chart-labels="portfolioNames"
+                                        chart-series="series"></canvas>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Portfolio Weight</h5>
+                                <canvas id="pie"
+                                        class="chart chart-pie"
+                                        chart-data="portfolioWeight"
+                                        chart-labels="portfolioNames"
+                                        chart-options="options"></canvas>
+                            </div>
+                        </div>
+                        <div ng-show="chartsTab === 2">
+                            <div class="col-sm-6">
+                                <h5>P/E</h5>
+                                <canvas id="radar"
+                                        class="chart chart-radar"
+                                        chart-data="portfolioPE"
+                                        chart-labels="portfolioNames"
+                                        chart-series="series"></canvas>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>P/S</h5>
+                                <canvas id="line"
+                                        class="chart chart-line"
+                                        chart-data="portfolioPS"
+                                        chart-labels="portfolioNames"
+                                        chart-dataset-override="datasetOverride" 
+                                        chart-click="onClick"
+                                        chart-options="options"></canvas>
+                            </div>
+                        </div>
+                        <div ng-show="chartsTab === 3">
+                            <div class="col-sm-6">
+                                <h5>Market Cap</h5>
+                                <canvas id="bar"
+                                        class="chart chart-bar"
+                                        chart-data="portfolioMarketCap"
+                                        chart-labels="portfolioNames"
+                                        chart-series="series"></canvas>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Volatility</h5>
+                                <canvas id="polar-area" 
+                                        class="chart chart-polar-area"
+                                        chart-data="portfolioVolatility"
+                                        chart-labels="portfolioNames"
+                                        chart-options="options"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,8 +104,8 @@
                     </div>
                 </div>
             </form>*@
-        <a hrhref="https://konklone.io/json/">Convert to CSV</a>
-        <a id="saveToMyStocks" ng-show="myStocksSaved" class="text-info">Right-click this link and click 'save as...'</a>
+        <a class="btn-sm btn-info" style="margin-bottom:6px" href="https://konklone.io/json/">Convert to CSV</a>
+        <a id="saveToMyStocks" ng-show="myStocksSaved" class="btn-sm btn-info">Right-click this link and click 'save as...'</a>
         <br />
         <table class="mainStockTable" id="searchTextResults">
             <theader>
