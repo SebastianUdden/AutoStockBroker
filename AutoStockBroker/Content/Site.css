@@ -26,6 +26,8 @@ body {
     height: 112px; /* .push must be the same height as .footer */
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -224,7 +226,7 @@ tr:hover {
 }
 
 .btn-sm {
-    padding: 0px 5px;
+    padding: 1px 5px;
     margin-right: 3px;
     font-size: 12px;
     line-height: 1.4;
@@ -232,5 +234,13 @@ tr:hover {
 }
 
 .btn {
-    padding: 0;
+    padding: 1px;
+}
+
+.chartsTab {
+    background-color:#e9e9e9 !important;
+}
+
+.chartsTab:hover {
+    background-color:deepskyblue !important;
 }
