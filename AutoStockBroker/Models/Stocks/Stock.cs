@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace AutoStockBroker.Models
+﻿namespace AutoStockBroker.Models
 {
     public class Stock
     {
         public string Name { get; set; }
+        public string StockCatalogueName { get; set; }
         public string Href { get; set; }
         public string Industry { get; set; }
         public string Currency { get; set; }
@@ -30,6 +26,12 @@ namespace AutoStockBroker.Models
         public double ValueOwned { get; set; }
         public double PortfolioVolatility { get; set; }
         public double Weight { get; set; }
+
+        public double Today { get; set; }
+        public double OneMonth { get; set; }
+        public double ThreeMonths { get; set; }
+        public double OneYear { get; set; }
+        public double ThreeYears { get; set; }
         public Stock()
         {
             Name = "";

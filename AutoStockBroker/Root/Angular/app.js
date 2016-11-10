@@ -34,18 +34,66 @@ app.controller('PrototypeController', function ($scope, $http) {
     $scope.ChartsVisible = false;
     $scope.chartsTab = 1;
 
-    $scope.portfolioNames = [];
-    $scope.portfolioValueOwned = [];
-    $scope.portfolioWeight = [];
-    $scope.portfolioMarketCap = [];
-    $scope.portfolioVolatility = [];
-    $scope.portfolioDividend = [];
-    $scope.portfolioPE = [];
-    $scope.portfolioPS = [];
+    //$scope.portfolioNames = [];
+    //$scope.portfolioIndustry = [];
+    //$scope.portfolioCurrency = [];
+    //$scope.portfolioValueOwned = [];
+    //$scope.portfolioWeight = [];
+    //$scope.portfolioMarketCap = [];
+    //$scope.portfolioVolatility = [];
+    //$scope.portfolioDividend = [];
+    //$scope.portfolioPE = [];
+    //$scope.portfolioPS = [];
+    //$scope.portfolioIndustryValue = [];
+    //$scope.portfolioIndustryName = [];
+    //$scope.industryTypes = [
+    //    {
+    //    "Name":"Energi",
+    //    "ValueOwned":0
+    //    },
+    //    {
+    //        "Name": "Material och råvaror",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Industrivaror och -tjänster",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Sällanköpsvaror och -tjänster",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Dagligvaror",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Hälsovård",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "EnergiFinans",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Informationsteknik",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Telekommunikation",
+    //        "ValueOwned": 0
+    //    },
+    //    {
+    //        "Name": "Kraftförsörjning",
+    //        "ValueOwned": 0
+    //    }
+    //];
 
     $scope.ChangeThePie = function () {
         $scope.ChartsVisible = true;
         $scope.portfolioNames = [];
+        $scope.portfolioIndustry = [];
+        $scope.portfolioCurrency = [];
         $scope.portfolioValueOwned = [];
         $scope.portfolioWeight = [];
         $scope.portfolioMarketCap = [];
@@ -53,21 +101,102 @@ app.controller('PrototypeController', function ($scope, $http) {
         $scope.portfolioDividend = [];
         $scope.portfolioPE = [];
         $scope.portfolioPS = [];
+        $scope.portfolioIndustryValueOwned = [];
+        $scope.portfolioIndustryName = [];
+        $scope.portfolioCurrencyValueOwned = [];
+        $scope.portfolioCurrencyName = [];
+        $scope.currencyTypes = [
+        {
+            "Name": "SEK",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "USD",
+            "ValueOwned": 0
+        }       
+        ];
+        $scope.industryTypes = [
+        {
+            "Name": "Energi",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Material och råvaror",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Industrivaror och -tjänster",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Sällanköpsvaror och -tjänster",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Dagligvaror",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Hälsovård",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "EnergiFinans",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Informationsteknik",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Telekommunikation",
+            "ValueOwned": 0
+        },
+        {
+            "Name": "Kraftförsörjning",
+            "ValueOwned": 0
+        }
+        ];
+
+        for (var i = 0; i < $scope.industryTypes.length; i++) {
+            for (var j = 0; j < $scope.myStocks.length; j++) {
+                if ($scope.industryTypes[i].Name === $scope.myStocks[j].Industry) {
+                    $scope.industryTypes[i].ValueOwned += $scope.myStocks[j].ValueOwned;
+                };
+            };
+            //if ($scope.industryTypes[i].ValueOwned === 0) {
+            //    $scope.industryTypes[i].splice(i, 1);
+            //};
+        };
+
+        for (var i = 0; i < $scope.industryTypes.length; i++) {
+            $scope.portfolioIndustryValueOwned.push($scope.industryTypes[i].ValueOwned);
+            $scope.portfolioIndustryName.push($scope.industryTypes[i].Name);
+        };
+
+        for (var i = 0; i < $scope.currencyTypes.length; i++) {
+            for (var j = 0; j < $scope.myStocks.length; j++) {
+                if ($scope.currencyTypes[i].Name === $scope.myStocks[j].Currency) {
+                    $scope.currencyTypes[i].ValueOwned += $scope.myStocks[j].ValueOwned;
+                };
+            };
+        };
+
+        for (var i = 0; i < $scope.currencyTypes.length; i++) {
+            $scope.portfolioCurrencyValueOwned.push($scope.currencyTypes[i].ValueOwned);
+            $scope.portfolioCurrencyName.push($scope.currencyTypes[i].Name);
+        }
+
         for (var i = 0; i < $scope.myStocks.length; i++) {
+            $scope.portfolioNames.push($scope.myStocks[i].Name);
             $scope.portfolioValueOwned.push($scope.myStocks[i].ValueOwned);
             $scope.portfolioWeight.push($scope.myStocks[i].Weight);
-            $scope.portfolioNames.push($scope.myStocks[i].Name);
             $scope.portfolioPE.push($scope.myStocks[i].PriceEarningsDouble);
             $scope.portfolioPS.push($scope.myStocks[i].PriceSalesDouble);
             $scope.portfolioMarketCap.push($scope.myStocks[i].MarketCapInt);
             $scope.portfolioVolatility.push($scope.myStocks[i].Volatility);
             $scope.portfolioDividend.push($scope.myStocks[i].DividendDouble);
         };
-
-        //$scope.pieData = $scope.portfolioWeight;
-        //$scope.pieLabels = $scope.portfolioNames;
-        //$scope.barData = $scope.portfolioValueOwned;
-        //$scope.barLabels = $scope.portfolioNames;
     };
 
     $scope.Stocks = null;
@@ -289,9 +418,9 @@ app.controller('PrototypeController', function ($scope, $http) {
     };
 
     $scope.CalculateValues = function () {
+        $scope.ChangeValues = !$scope.ChangeValues;
         $scope.CalculateAmountValueAndWeight();
         $scope.ChangeThePie();
-        $scope.ChangeValues = !$scope.ChangeValues;
     };
 
     $scope.CalculateAmountValueAndWeight = function () {

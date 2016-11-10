@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace AutoStockBroker.Models
+﻿namespace AutoStockBroker.Models
 {
     public static class Calculator
     {
@@ -11,6 +6,8 @@ namespace AutoStockBroker.Models
         {
             for (int i = 0; i < stockPortfolio.Stocks.Count; i++)
             {
+                stockPortfolio.Stocks[i].Industry = stockPortfolio.Stocks[i].ValueDouble < 500 && stockPortfolio.Stocks[i].ValueDouble > 200 ? "Dagligvaror" : stockPortfolio.Stocks[i].Industry;
+                stockPortfolio.Stocks[i].Industry = stockPortfolio.Stocks[i].ValueDouble < 700 && stockPortfolio.Stocks[i].ValueDouble > 300 ? "Hälsovård" : stockPortfolio.Stocks[i].Industry;
                 stockPortfolio.Stocks[i].ValueOwned = stockPortfolio.Stocks[i].ValueDouble * stockPortfolio.Stocks[i].AmountOwned;
                 stockPortfolio.TotalValue += stockPortfolio.Stocks[i].ValueOwned;
                 stockPortfolio.TotalAmountOwned += stockPortfolio.Stocks[i].AmountOwned;

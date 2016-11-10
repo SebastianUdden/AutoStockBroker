@@ -1,19 +1,6 @@
 ﻿using AutoStockBroker.Models;
-using HtmlAgilityPack;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AutoStockBroker.Controllers
@@ -25,21 +12,24 @@ namespace AutoStockBroker.Controllers
             #region NoInternetConnection
             StockPortfolio largeCapPortfolio = new StockPortfolio("Large Cap");
             StockPortfolio avanzaLargeCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", largeCapPortfolio);
-            StockPortfolio viewAvanzaLargeCapStockPortfolio = Calculator.SetStockParameters(avanzaLargeCapStockPortfolio);
-            StockPortfolio avanzaLargeCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaLargeCapStockPortfolio);
+            //StockPortfolio viewAvanzaLargeCapStockPortfolio = Calculator.SetStockParameters(avanzaLargeCapStockPortfolio);
+            StockPortfolio avanzaLargeCapStockPortfolioHistory = AvanzaParsers.ParseAvanzaOldListHistory("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=history", avanzaLargeCapStockPortfolio);
+            StockPortfolio avanzaLargeCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", avanzaLargeCapStockPortfolioHistory);
             StockPortfolio viewAvanzaLargeCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaLargeCapStockPortfolioOverview);
 
             StockPortfolio midCapPortfolio = new StockPortfolio("Mid Cap");
             StockPortfolio avanzaMidCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", midCapPortfolio);
-            StockPortfolio viewAvanzaMidCapStockPortfolio = Calculator.SetStockParameters(avanzaMidCapStockPortfolio);
-            StockPortfolio avanzaMidCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaMidCapStockPortfolio);
+            //StockPortfolio viewAvanzaMidCapStockPortfolio = Calculator.SetStockParameters(avanzaMidCapStockPortfolio);
+            StockPortfolio avanzaMidCapStockPortfolioHistory = AvanzaParsers.ParseAvanzaOldListHistory("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=history", avanzaMidCapStockPortfolio);
+            StockPortfolio avanzaMidCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_MidCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", avanzaMidCapStockPortfolioHistory);
             StockPortfolio viewAvanzaMidCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaMidCapStockPortfolioOverview);
 
 
             StockPortfolio smallCapPortfolio = new StockPortfolio("Small Cap");
             StockPortfolio avanzaSmallCapStockPortfolio = AvanzaParsers.ParseAvanzaOldList("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=quote", smallCapPortfolio);
-            StockPortfolio viewAvanzaSmallCapStockPortfolio = Calculator.SetStockParameters(avanzaSmallCapStockPortfolio);
-            StockPortfolio avanzaSmallCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", viewAvanzaSmallCapStockPortfolio);
+            //StockPortfolio viewAvanzaSmallCapStockPortfolio = Calculator.SetStockParameters(avanzaSmallCapStockPortfolio);
+            StockPortfolio avanzaSmallCapStockPortfolioHistory = AvanzaParsers.ParseAvanzaOldListHistory("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_LargeCap.SE&sectorId=ALL&page=1&sortField=NAME&sortOrder=ASCENDING&activeTab=history", avanzaSmallCapStockPortfolio);
+            StockPortfolio avanzaSmallCapStockPortfolioOverview = AvanzaParsers.ParseAvanzaOldListOverview("https://www.avanza.se/aktier/gamla-aktielistan.html?countryCode=SE&marketPlaceOrList=LIST_SmallCap.SE&sortField=NAME&sortOrder=ASCENDING&activeTab=overview", avanzaSmallCapStockPortfolioHistory);
             StockPortfolio viewAvanzaSmallCapStockPortfolioOverview = Calculator.SetStockParameters(avanzaSmallCapStockPortfolioOverview);
 
             StockPortfolio allAvanzaStocks = new StockPortfolio("Avanza Stocks");
